@@ -1,0 +1,393 @@
+.app {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ============ Sidebar ============ */
+
+.sidebar {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  flex: none;
+  width: var(--sidebar-w);
+  height: 100vh;
+  background: #fff;
+  border-right: 1px solid var(--line);
+  transition: width 0.2s ease;
+}
+
+.sidebar-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: var(--topbar-h);
+  padding: 0 20px;
+  color: inherit;
+  border-bottom: 1px solid var(--line-2);
+  overflow: hidden;
+}
+
+.sidebar-logo:hover {
+  text-decoration: none;
+}
+
+.logo-mark {
+  display: block;
+  flex: none;
+  width: 36px;
+  height: 36px;
+}
+
+.sidebar-name {
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.2px;
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+.sidebar-name em {
+  font-style: normal;
+  color: var(--accent);
+}
+
+.sidebar-sub {
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.sidebar-nav {
+  flex: 1;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 10px 14px 14px;
+}
+
+.nav-group {
+  padding: 14px 10px 6px;
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: var(--faint);
+  white-space: nowrap;
+}
+
+.nav-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 42px;
+  margin: 2px 0;
+  padding: 0 12px;
+  border-radius: 12px;
+  color: var(--text);
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.nav-link svg.i {
+  color: var(--muted);
+}
+
+.nav-link:hover {
+  background: var(--soft-2);
+  text-decoration: none;
+}
+
+.nav-link.active {
+  background: var(--g-accent);
+  color: #fff;
+  font-weight: 600;
+  box-shadow: var(--sh-accent);
+}
+
+.nav-link.active svg.i {
+  color: #fff;
+}
+
+.sidebar-foot {
+  padding: 10px 14px 14px;
+  border-top: 1px solid var(--line-2);
+}
+
+.sidebar-collapse {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  height: 40px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 12px;
+  background: none;
+  color: var(--muted);
+  font: inherit;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.sidebar-collapse:hover {
+  background: var(--line-2);
+  color: var(--ink);
+}
+
+/* Thu gọn: chỉ còn icon */
+.app.collapsed .sidebar {
+  width: var(--sidebar-w-collapsed);
+}
+
+.app.collapsed .sidebar-logo {
+  padding: 0 20px;
+}
+
+.app.collapsed .sidebar-logo > div,
+.app.collapsed .nav-link span,
+.app.collapsed .sidebar-collapse span {
+  display: none;
+}
+
+.app.collapsed .nav-group {
+  height: 1px;
+  margin: 12px 10px;
+  padding: 0;
+  overflow: hidden;
+  background: var(--line);
+  color: transparent;
+}
+
+.app.collapsed .nav-link,
+.app.collapsed .sidebar-collapse {
+  justify-content: center;
+  padding: 0;
+}
+
+.sidebar-scrim {
+  display: none;
+}
+
+/* ============ Topbar ============ */
+
+.main {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  height: var(--topbar-h);
+  padding: 0 32px;
+  background: rgba(255, 255, 255, 0.86);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+
+.topbar .menu-toggle {
+  display: none;
+}
+
+.topbar-title {
+  min-width: 0;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-left: auto;
+}
+
+.topbar-date {
+  font-size: 14px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.account-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  max-width: 260px;
+  padding: 3px 10px 3px 3px;
+  border: 1px solid var(--btn-border);
+  border-radius: 9999px;
+  background: #fff;
+  box-shadow: 0 1px 1px rgba(17, 26, 51, 0.03);
+  cursor: pointer;
+}
+
+.account-btn:hover {
+  border-color: #b9c6f7;
+}
+
+.account-btn > svg.i {
+  width: 15px;
+  height: 15px;
+  color: var(--muted);
+  transition: transform 0.15s;
+}
+
+.account-btn[aria-expanded='true'] > svg.i {
+  transform: rotate(180deg);
+}
+
+.account-meta {
+  min-width: 0;
+  text-align: left;
+  line-height: 1.2;
+}
+
+.account-meta b {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.account-meta small {
+  display: block;
+  font-size: 12.5px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.page {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 28px 32px 48px;
+}
+
+/* ============ Responsive ============ */
+
+@media (max-width: 900px) {
+  .sidebar,
+  .app.collapsed .sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: var(--sidebar-w);
+    transform: translateX(-100%);
+    transition: transform 0.25s;
+    box-shadow: var(--sh-pop);
+  }
+
+  /* Off-canvas luôn hiện đủ chữ */
+  .app.collapsed .sidebar-logo > div,
+  .app.collapsed .nav-link span {
+    display: block;
+  }
+
+  .app.collapsed .nav-group {
+    height: auto;
+    margin: 0;
+    padding: 14px 10px 6px;
+    background: none;
+    color: var(--faint);
+  }
+
+  .app.collapsed .nav-link {
+    justify-content: flex-start;
+    padding: 0 12px;
+  }
+
+  .sidebar-foot {
+    display: none;
+  }
+
+  .app.nav-open .sidebar {
+    transform: none;
+  }
+
+  .app.nav-open .sidebar-scrim {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 25;
+    background: var(--overlay);
+  }
+
+  .topbar {
+    padding: 0 16px;
+  }
+
+  .topbar .menu-toggle {
+    display: inline-flex;
+  }
+
+  .topbar-date {
+    display: none;
+  }
+
+  .page {
+    padding: 20px 16px 40px;
+  }
+}
+
+@media (max-width: 720px) {
+  .account-meta,
+  .account-btn > svg.i {
+    display: none;
+  }
+
+  .account-btn {
+    padding: 3px;
+  }
+}
+
+/* Logo giống cace-web: logo đầy đủ khi mở, icon cúp khi thu gọn */
+.sidebar-logo-icon {
+  display: none;
+}
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+.sidebar-wordmark {
+  display: block;
+  height: 34px;
+  width: auto;
+}
+.sidebar-cms {
+  padding: 2px 7px;
+  border-radius: 6px;
+  background: #e8efff;
+  color: #1746c9;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+.app.collapsed .sidebar-logo-icon {
+  display: block;
+}
+@media (max-width: 900px) {
+  .app.collapsed .sidebar-logo-icon {
+    display: none;
+  }
+}

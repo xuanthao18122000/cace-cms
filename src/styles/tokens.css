@@ -1,0 +1,73 @@
+/*
+ * Design tokens CACE CMS. Mọi màu, bo góc, bóng đổ lấy từ đây; component không tự đặt mã màu.
+ */
+:root {
+  /* Màu thương hiệu CACE */
+  --accent: #1238d6;
+  --accent-hover: #0f30bd;
+  --accent-ink: #0b2799;
+  --soft: #e8edfd;
+  --soft-2: #f3f6fe;
+  --g-accent: linear-gradient(180deg, #2c52ea 0%, #1238d6 55%, #0f31c4 100%);
+  --g-accent-hover: linear-gradient(180deg, #2147df 0%, #0f32c6 55%, #0c2bb0 100%);
+  --sh-accent: inset 0 1px 0 rgba(255, 255, 255, 0.22), 0 1px 2px rgba(11, 39, 153, 0.3),
+    0 6px 14px -6px rgba(18, 56, 214, 0.55);
+  --g-brand-panel: radial-gradient(120% 90% at 0% 0%, #2f57f0 0%, #1238d6 45%, #0a218a 100%);
+
+  /* Chữ */
+  --ink: #111a33;
+  --text: #283149;
+  --muted: #667085;
+  --faint: #9aa3b5;
+
+  /* Đường kẻ, ô nhập */
+  --line: #e5e9f1;
+  --line-2: #f0f3f8;
+  --line-soft: #ecf0f6;
+  --field: #d2d8e4;
+  --field-hover: #9ea8bb;
+  --btn-border: #dee3ec;
+
+  /* Nền */
+  --bg: #f3f5f9;
+  --card: #ffffff;
+  --row-hover: #f8faff;
+  --row-selected: #f2f5ff;
+  --head-bg: #f9fafc;
+  --kv-bg: #f7f9fc;
+
+  /* Trạng thái: chữ + nền */
+  --green: #188537;
+  --green-bg: #e7f5ec;
+  --yellow: #8a6d00;
+  --yellow-bg: #fdf3cb;
+  --red: #c53030;
+  --red-bg: #fdecec;
+  --blue: #0b74c4;
+  --blue-bg: #e3f2fd;
+  --orange: #b45f06;
+  --orange-bg: #fce8d5;
+  --purple: #6941c6;
+  --purple-bg: #f1ecfd;
+  --gray: #5f6675;
+  --gray-bg: #f0f2f5;
+
+  /* Thanh số liệu */
+  --chart-track: #e6eaf3;
+
+  /* Kích thước */
+  --r: 16px;
+  --r-s: 12px;
+  --sidebar-w: 256px;
+  --sidebar-w-collapsed: 76px;
+  --topbar-h: 64px;
+
+  /* Bóng */
+  --sh-card: 0 1px 2px rgba(17, 26, 51, 0.04), 0 4px 16px -6px rgba(18, 40, 120, 0.1);
+  --sh-pop: 0 12px 40px rgba(17, 26, 51, 0.16);
+  --sh-btn: 0 1px 2px rgba(17, 26, 51, 0.05);
+  --overlay: rgba(17, 26, 51, 0.36);
+
+  --font: 'Quicksand', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  --mono: 'SF Mono', ui-monospace, Menlo, Consolas, monospace;
+}
