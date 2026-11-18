@@ -4,7 +4,7 @@ import { Controller, useForm, useWatch } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useBlocker, useNavigate, useParams } from 'react-router-dom'
-import { ArrowLeft, Check, ExternalLink, SearchX, Trash2 } from 'lucide-react'
+import { ArrowLeft, BookOpenText, CalendarClock, Check, ExternalLink, FileText, Image as ImageIcon, SearchX, Send, Trash2, UsersRound } from 'lucide-react'
 import { ApiError, competitionApi, errorMessage } from '@/api'
 import { RichTextEditor } from '@/components/editor/RichTextEditor'
 import {
@@ -286,7 +286,7 @@ function CompetitionForm({ item }: { item: AdminCompetition | null }) {
 
       <form className="case-editor" onSubmit={onSubmit} noValidate autoComplete="off">
         <div className="case-main">
-          <Card title="Thông tin chung">
+          <Card icon={FileText} title="Thông tin chung">
             <Field label="Tên cuộc thi" htmlFor="m-name" required error={errors.name?.message}>
               <Input
                 id="m-name"
@@ -342,7 +342,7 @@ function CompetitionForm({ item }: { item: AdminCompetition | null }) {
             </Field>
           </Card>
 
-          <Card title="Thời gian" subtitle="Theo giờ máy của bạn. Bỏ trống ngày mở đăng ký nếu mở ngay.">
+          <Card icon={CalendarClock} title="Thời gian" subtitle="Theo giờ máy của bạn. Bỏ trống ngày mở đăng ký nếu mở ngay.">
             <FormRow>
               <Field label="Mở đăng ký" htmlFor="m-opens" error={errors.registrationOpensAt?.message}>
                 <Controller
@@ -409,7 +409,7 @@ function CompetitionForm({ item }: { item: AdminCompetition | null }) {
             </FormRow>
           </Card>
 
-          <Card title="Thể thức">
+          <Card icon={UsersRound} title="Thể thức">
             <FormRow>
               <Field label="Số người tối thiểu" htmlFor="m-team-min" error={errors.teamMin?.message}>
                 <Input
@@ -459,7 +459,7 @@ function CompetitionForm({ item }: { item: AdminCompetition | null }) {
             </Field>
           </Card>
 
-          <Card title="Nội dung chi tiết" subtitle="Thể lệ, vòng thi, quyền lợi. Có thể chèn ảnh, bảng, liên kết.">
+          <Card icon={BookOpenText} title="Nội dung chi tiết" subtitle="Thể lệ, vòng thi, quyền lợi. Có thể chèn ảnh, bảng, liên kết.">
             <Controller
               control={control}
               name="content"
@@ -488,7 +488,7 @@ function CompetitionForm({ item }: { item: AdminCompetition | null }) {
             />
           )}
 
-          <Card title="Xuất bản">
+          <Card icon={Send} title="Xuất bản">
             {inReview ? (
               <Field label="Trạng thái" hint="Duyệt hoặc từ chối ở khung Đề xuất từ người dùng">
                 <div>
@@ -541,7 +541,7 @@ function CompetitionForm({ item }: { item: AdminCompetition | null }) {
             )}
           </Card>
 
-          <Card title="Ảnh bìa">
+          <Card icon={ImageIcon} title="Ảnh bìa">
             <Controller
               control={control}
               name="coverUrl"

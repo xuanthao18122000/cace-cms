@@ -147,22 +147,21 @@ export function TeamPostsPage() {
         subtitle="Tin tìm đồng đội người học đăng trên web: ẩn tin vi phạm, đóng tin đã đủ người"
       />
 
-      <div className="tabs" role="tablist" aria-label="Lọc theo trạng thái">
-        {TABS.map((t) => (
-          <button
-            key={t.key}
-            type="button"
-            role="tab"
-            aria-selected={t.status === status}
-            className={t.status === status ? 'tab active' : 'tab'}
-            onClick={() => setStatus(t.status)}
-          >
-            {t.label}
-          </button>
-        ))}
-      </div>
-
       <Card>
+        <div className="tabs" role="tablist" aria-label="Lọc theo trạng thái">
+          {TABS.map((t) => (
+            <button
+              key={t.key}
+              type="button"
+              role="tab"
+              aria-selected={t.status === status}
+              className={t.status === status ? 'tab active' : 'tab'}
+              onClick={() => setStatus(t.status)}
+            >
+              {t.label}
+            </button>
+          ))}
+        </div>
         <FilterBar>
           <SearchBox value={search} onChange={setSearch} placeholder="Tìm tiêu đề, tên hoặc email chủ tin" />
           {posts.data && <ResultCount>{`${formatNumber(total)} tin`}</ResultCount>}

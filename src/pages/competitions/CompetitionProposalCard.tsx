@@ -1,4 +1,4 @@
-import { BadgeCheck, Check, CircleX } from 'lucide-react'
+import { BadgeCheck, Check, CircleX, Inbox } from 'lucide-react'
 import { Button, Card, Icon, InfoBox, KeyValueGrid, type KeyValueItem } from '@/components/ui'
 import type { AdminCompetition } from '@/types'
 import { formatDateTime, formatRelative } from '@/utils/format'
@@ -58,7 +58,7 @@ export function CompetitionProposalCard({ item, busy, onApprove, onReject }: Pro
   ]
 
   return (
-    <Card title="Đề xuất từ người dùng">
+    <Card icon={Inbox} title="Đề xuất từ người dùng">
       {item.status === 'pending' ? (
         <InfoBox>Kiểm tra nguồn và sửa thông tin nếu cần. Cuộc thi chỉ hiện trên web sau khi duyệt.</InfoBox>
       ) : item.status === 'rejected' ? (

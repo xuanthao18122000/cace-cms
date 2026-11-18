@@ -110,7 +110,9 @@ export function AppLayout() {
               label="Tài khoản"
               trigger={({ open, toggle }) => (
                 <button type="button" className="account-btn" aria-haspopup="menu" aria-expanded={open} onClick={toggle}>
-                  <Avatar name={user.fullName} src={user.avatarUrl} size="sm" />
+                  <span className="avatar-online">
+                    <Avatar name={user.fullName} src={user.avatarUrl} size="sm" />
+                  </span>
                   <span className="account-meta">
                     <b>{user.fullName}</b>
                     <small>{user.role.name}</small>

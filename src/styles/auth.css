@@ -43,7 +43,7 @@
   bottom: -140px;
   width: 420px;
   height: 420px;
-  background: radial-gradient(circle at 30% 30%, rgba(157, 182, 255, 0.55), rgba(18, 56, 214, 0) 70%);
+  background: radial-gradient(circle at 30% 30%, rgba(157, 182, 255, 0.55), rgba(33, 91, 238, 0) 70%);
 }
 
 .auth-orb.two {
@@ -153,12 +153,17 @@
   align-items: center;
   justify-content: center;
   padding: 48px 32px;
-  background: linear-gradient(180deg, #f7f9ff 0%, #fff 40%);
+  background: var(--bg);
 }
 
 .auth-card {
   width: 100%;
-  max-width: 400px;
+  max-width: 448px;
+  padding: 32px 24px;
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  background: #fff;
+  box-shadow: var(--sh-card);
   animation: pop-in 0.25s ease-out;
 }
 
@@ -269,13 +274,14 @@
   padding: 10px 12px;
   border: 1px solid var(--line);
   border-radius: 12px;
+  box-shadow: var(--sh-card);
   background: #fff;
   text-align: left;
   cursor: pointer;
 }
 
 .auth-demo-list button:hover:not(:disabled) {
-  border-color: var(--accent);
+  border-color: var(--primary-200);
 }
 
 .auth-demo-list b {
@@ -307,7 +313,7 @@
 
   .auth-panel {
     align-items: flex-start;
-    padding: 40px 20px;
+    padding: 24px 16px;
   }
 }
 
@@ -327,6 +333,6 @@
   color: #fff;
 }
 .auth-mobile-logo .auth-cms {
-  background: #e8efff;
-  color: #1746c9;
+  background: var(--primary-50);
+  color: var(--primary-700);
 }

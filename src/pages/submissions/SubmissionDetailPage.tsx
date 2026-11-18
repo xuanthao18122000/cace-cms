@@ -1,7 +1,7 @@
 import { useMemo, type ReactNode } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import { ArrowLeft, Download, FileText, FileX, LibraryBig } from 'lucide-react'
+import { ArrowLeft, Download, FileText, FileX, Gauge, LibraryBig, Lightbulb, Paperclip, PenLine, UserRound } from 'lucide-react'
 import { ApiError, submissionApi } from '@/api'
 import {
   Avatar,
@@ -174,7 +174,7 @@ function SubmissionView({ s, back, crumbs }: { s: AdminSubmissionDetail; back: R
 
       <div className="grid g21 top">
         <div className="stack">
-          <Card title="Bài làm" subtitle={`${formatNumber(s.wordCount)} chữ`}>
+          <Card icon={PenLine} title="Bài làm" subtitle={`${formatNumber(s.wordCount)} chữ`}>
             {s.content ? (
               <div className="rte-content rte-readonly" dangerouslySetInnerHTML={{ __html: s.content }} />
             ) : (
@@ -182,7 +182,7 @@ function SubmissionView({ s, back, crumbs }: { s: AdminSubmissionDetail; back: R
             )}
           </Card>
 
-          <Card title="File đính kèm" subtitle={s.attachments.length ? `${s.attachments.length} file` : undefined}>
+          <Card icon={Paperclip} title="File đính kèm" subtitle={s.attachments.length ? `${s.attachments.length} file` : undefined}>
             {s.attachments.length ? (
               <div className="sub-files">
                 {s.attachments.map((a) => (
@@ -194,7 +194,7 @@ function SubmissionView({ s, back, crumbs }: { s: AdminSubmissionDetail; back: R
             )}
           </Card>
 
-          <Card title="Tự đánh giá" subtitle="Người học tự chấm theo tiêu chí của case sau khi nộp">
+          <Card icon={Gauge} title="Tự đánh giá" subtitle="Người học tự chấm theo tiêu chí của case sau khi nộp">
             {s.selfAssessment ? (
               <>
                 <DataTable columns={assessmentColumns} rows={rows} rowKey={(r) => r.id} />
@@ -209,7 +209,7 @@ function SubmissionView({ s, back, crumbs }: { s: AdminSubmissionDetail; back: R
             )}
           </Card>
 
-          <CollapsibleCard title="Dẫn giải mẫu" subtitle="Để đối chiếu khi đọc bài">
+          <CollapsibleCard icon={Lightbulb} title="Dẫn giải mẫu" subtitle="Để đối chiếu khi đọc bài">
             {solution && (solution.content || solution.pdfUrl) ? (
               <>
                 {solution.content && <div className="rte-content rte-readonly" dangerouslySetInnerHTML={{ __html: solution.content }} />}
@@ -231,7 +231,7 @@ function SubmissionView({ s, back, crumbs }: { s: AdminSubmissionDetail; back: R
           {/* Cạnh bài làm để vừa đọc vừa chấm */}
           <GradePanel key={s.id} s={s} criteria={criteria} />
 
-          <Card title="Người làm">
+          <Card icon={UserRound} title="Người làm">
             <div className="entity">
               <Avatar name={s.user.fullName} src={s.user.avatarUrl} size="lg" />
               <div className="min-w-0">

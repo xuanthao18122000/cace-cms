@@ -150,23 +150,22 @@ export function CompetitionsPage() {
         actions={addButton}
       />
 
-      <div className="tabs" role="tablist" aria-label="Lọc nhanh">
-        {TABS.map((t) => (
-          <button
-            key={t.key}
-            type="button"
-            role="tab"
-            aria-selected={t.key === activeTab}
-            className={t.key === activeTab ? 'tab active' : 'tab'}
-            onClick={() => selectTab(t)}
-          >
-            {t.label}
-            {t.key === 'pending' && pendingCount.data && <span className="tab-count">{formatNumber(pendingCount.data.total)}</span>}
-          </button>
-        ))}
-      </div>
-
       <Card>
+        <div className="tabs" role="tablist" aria-label="Lọc nhanh">
+          {TABS.map((t) => (
+            <button
+              key={t.key}
+              type="button"
+              role="tab"
+              aria-selected={t.key === activeTab}
+              className={t.key === activeTab ? 'tab active' : 'tab'}
+              onClick={() => selectTab(t)}
+            >
+              {t.label}
+              {t.key === 'pending' && pendingCount.data && <span className="tab-count">{formatNumber(pendingCount.data.total)}</span>}
+            </button>
+          ))}
+        </div>
         <FilterBar>
           <SearchBox value={search} onChange={setSearch} placeholder="Tìm tên cuộc thi, đơn vị tổ chức" />
           <Select

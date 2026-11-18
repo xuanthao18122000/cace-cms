@@ -70,48 +70,67 @@
 }
 
 .nav-group {
-  padding: 14px 10px 6px;
-  font-size: 12.5px;
-  font-weight: 600;
-  letter-spacing: 0.4px;
+  padding: 16px 12px 6px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--faint);
   white-space: nowrap;
 }
 
+/* Mục menu dạng pill: mục đang mở là pill nhạt màu thương hiệu + vạch nhỏ bên trái */
 .nav-link {
   position: relative;
   display: flex;
   align-items: center;
   gap: 12px;
-  height: 42px;
+  height: 40px;
   margin: 2px 0;
-  padding: 0 12px;
-  border-radius: 12px;
+  padding: 0 14px;
+  border-radius: 9999px;
   color: var(--text);
-  font-weight: 500;
+  font-weight: 600;
   white-space: nowrap;
   cursor: pointer;
+  transition: background 0.15s, color 0.15s;
 }
 
 .nav-link svg.i {
-  color: var(--muted);
+  color: var(--faint);
+  transition: color 0.15s;
 }
 
 .nav-link:hover {
-  background: var(--soft-2);
+  background: var(--line-2);
+  color: var(--ink);
   text-decoration: none;
 }
 
+.nav-link:hover svg.i {
+  color: var(--muted);
+}
+
 .nav-link.active {
-  background: var(--g-accent);
-  color: #fff;
-  font-weight: 600;
-  box-shadow: var(--sh-accent);
+  background: var(--primary-50);
+  color: var(--primary-700);
+  font-weight: 700;
 }
 
 .nav-link.active svg.i {
-  color: #fff;
+  color: var(--primary-600);
+}
+
+.nav-link.active::before {
+  content: '';
+  position: absolute;
+  left: -14px;
+  top: 50%;
+  width: 3px;
+  height: 18px;
+  border-radius: 0 3px 3px 0;
+  background: var(--primary-600);
+  transform: translateY(-50%);
 }
 
 .sidebar-foot {
@@ -125,13 +144,13 @@
   gap: 12px;
   width: 100%;
   height: 40px;
-  padding: 0 12px;
+  padding: 0 14px;
   border: 0;
-  border-radius: 12px;
+  border-radius: 9999px;
   background: none;
   color: var(--muted);
   font: inherit;
-  font-weight: 500;
+  font-weight: 600;
   white-space: nowrap;
   cursor: pointer;
 }
@@ -193,7 +212,7 @@
   gap: 14px;
   height: var(--topbar-h);
   padding: 0 32px;
-  background: rgba(255, 255, 255, 0.86);
+  background: rgb(255 255 255 / 0.94);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--line);
 }
@@ -204,8 +223,8 @@
 
 .topbar-title {
   min-width: 0;
-  font-size: 17px;
-  font-weight: 600;
+  font-size: 16.5px;
+  font-weight: 700;
   color: var(--ink);
   white-space: nowrap;
   overflow: hidden;
@@ -220,7 +239,15 @@
 }
 
 .topbar-date {
-  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  height: 32px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: 9999px;
+  background: #fff;
+  font-size: 13.5px;
+  font-weight: 600;
   color: var(--muted);
   white-space: nowrap;
 }
@@ -239,7 +266,26 @@
 }
 
 .account-btn:hover {
-  border-color: #b9c6f7;
+  border-color: var(--primary-200);
+}
+
+/* Chấm xanh "đang trực tuyến" trên avatar tài khoản */
+.account-btn .avatar-online {
+  position: relative;
+  display: inline-flex;
+  flex: none;
+}
+
+.account-btn .avatar-online::after {
+  content: '';
+  position: absolute;
+  right: -1px;
+  bottom: -1px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--green-dot);
+  box-shadow: 0 0 0 2px #fff;
 }
 
 .account-btn > svg.i {
@@ -306,14 +352,14 @@
   .app.collapsed .nav-group {
     height: auto;
     margin: 0;
-    padding: 14px 10px 6px;
+    padding: 16px 12px 6px;
     background: none;
     color: var(--faint);
   }
 
   .app.collapsed .nav-link {
     justify-content: flex-start;
-    padding: 0 12px;
+    padding: 0 14px;
   }
 
   .sidebar-foot {
@@ -375,13 +421,7 @@
   width: auto;
 }
 .sidebar-cms {
-  padding: 2px 7px;
-  border-radius: 6px;
-  background: #e8efff;
-  color: #1746c9;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
+  margin-left: 8px;
 }
 .app.collapsed .sidebar-logo-icon {
   display: block;

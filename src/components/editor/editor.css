@@ -7,8 +7,8 @@
 }
 
 .rte:focus-within {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px var(--soft);
+  border-color: var(--primary-500);
+  box-shadow: var(--ring);
 }
 
 .rte.invalid {
@@ -235,7 +235,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: rgba(18, 56, 214, 0.08);
+  background: rgb(33 91 238 / 0.08);
   pointer-events: none;
 }
 

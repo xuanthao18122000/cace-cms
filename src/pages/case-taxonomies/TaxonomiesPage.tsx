@@ -146,16 +146,15 @@ export function TaxonomiesPage() {
         }
       />
 
-      <div className="tabs" role="tablist" aria-label="Loại danh mục">
-        {TAXONOMY_TYPES.map((t) => (
-          <button key={t} type="button" role="tab" aria-selected={t === type} className={t === type ? 'tab active' : 'tab'} onClick={() => setType(t)}>
-            {TAXONOMY_LABEL[t]}
-            {lists[t].data && <span className="tab-count">{lists[t].data.length}</span>}
-          </button>
-        ))}
-      </div>
-
       <Card>
+        <div className="tabs" role="tablist" aria-label="Loại danh mục">
+          {TAXONOMY_TYPES.map((t) => (
+            <button key={t} type="button" role="tab" aria-selected={t === type} className={t === type ? 'tab active' : 'tab'} onClick={() => setType(t)}>
+              {TAXONOMY_LABEL[t]}
+              {lists[t].data && <span className="tab-count">{lists[t].data.length}</span>}
+            </button>
+          ))}
+        </div>
         {list.isError && !list.data ? (
           <ErrorState error={list.error} onRetry={() => list.refetch()} />
         ) : !list.isPending && rows.length === 0 ? (

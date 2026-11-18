@@ -2,17 +2,26 @@
  * Design tokens CACE CMS. Mọi màu, bo góc, bóng đổ lấy từ đây; component không tự đặt mã màu.
  */
 :root {
-  /* Màu thương hiệu CACE */
-  --accent: #1238d6;
-  --accent-hover: #0f30bd;
-  --accent-ink: #0b2799;
-  --soft: #e8edfd;
-  --soft-2: #f3f6fe;
-  --g-accent: linear-gradient(180deg, #2c52ea 0%, #1238d6 55%, #0f31c4 100%);
-  --g-accent-hover: linear-gradient(180deg, #2147df 0%, #0f32c6 55%, #0c2bb0 100%);
-  --sh-accent: inset 0 1px 0 rgba(255, 255, 255, 0.22), 0 1px 2px rgba(11, 39, 153, 0.3),
-    0 6px 14px -6px rgba(18, 56, 214, 0.55);
-  --g-brand-panel: radial-gradient(120% 90% at 0% 0%, #2f57f0 0%, #1238d6 45%, #0a218a 100%);
+  /* Màu thương hiệu CACE: thang Royal #215bee (giống cace-web) */
+  --primary-50: #eff4ff;
+  --primary-100: #dfe8fe;
+  --primary-200: #c0d2fd;
+  --primary-300: #93b3fa;
+  --primary-500: #3a70f1;
+  --primary-600: #215bee;
+  --primary-700: #1746c9;
+  --primary-800: #163a9f;
+
+  --accent: var(--primary-600);
+  --accent-hover: var(--primary-700);
+  --accent-ink: var(--primary-700);
+  --soft: var(--primary-50);
+  --soft-2: #f5f8ff;
+  --g-accent: var(--primary-600);
+  --g-accent-hover: var(--primary-700);
+  /* Nút chính: bóng màu mềm kiểu chodev */
+  --sh-accent: 0 8px 18px -10px rgb(33 91 238 / 0.9);
+  --g-brand-panel: radial-gradient(120% 90% at 0% 0%, #3a70f1 0%, #215bee 45%, #163a9f 100%);
 
   /* Chữ */
   --ink: #111a33;
@@ -21,24 +30,25 @@
   --faint: #9aa3b5;
 
   /* Đường kẻ, ô nhập */
-  --line: #e5e9f1;
-  --line-2: #f0f3f8;
-  --line-soft: #ecf0f6;
-  --field: #d2d8e4;
-  --field-hover: #9ea8bb;
-  --btn-border: #dee3ec;
+  --line: #e4e9f5;
+  --line-2: #eef2f9;
+  --line-soft: #e4e9f5;
+  --field: #dbe2ef;
+  --field-hover: var(--primary-200);
+  --btn-border: #e4e9f5;
 
   /* Nền */
-  --bg: #f3f5f9;
+  --bg: #f6f8fc;
   --card: #ffffff;
-  --row-hover: #f8faff;
-  --row-selected: #f2f5ff;
-  --head-bg: #f9fafc;
-  --kv-bg: #f7f9fc;
+  --row-hover: #f7f9ff;
+  --row-selected: var(--primary-50);
+  --head-bg: #fafbfe;
+  --kv-bg: #f6f8fc;
 
   /* Trạng thái: chữ + nền */
   --green: #188537;
-  --green-bg: #e7f5ec;
+  --green-bg: #e9f7ee;
+  --green-dot: #22c55e;
   --yellow: #8a6d00;
   --yellow-bg: #fdf3cb;
   --red: #c53030;
@@ -63,9 +73,12 @@
   --topbar-h: 64px;
 
   /* Bóng */
-  --sh-card: 0 1px 2px rgba(17, 26, 51, 0.04), 0 4px 16px -6px rgba(18, 40, 120, 0.1);
+  /* Panel trắng: viền mảnh + bóng rất nhẹ */
+  --sh-card: 0 1px 2px rgb(16 24 40 / 0.04);
+  --sh-card-hover: 0 1px 2px rgb(16 24 40 / 0.04), 0 8px 24px -12px rgb(33 91 238 / 0.18);
   --sh-pop: 0 12px 40px rgba(17, 26, 51, 0.16);
-  --sh-btn: 0 1px 2px rgba(17, 26, 51, 0.05);
+  --sh-btn: 0 1px 2px rgb(16 24 40 / 0.04);
+  --ring: 0 0 0 4px var(--primary-100);
   --overlay: rgba(17, 26, 51, 0.36);
 
   --font: 'Quicksand', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;

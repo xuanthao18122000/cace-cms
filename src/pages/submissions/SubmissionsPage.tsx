@@ -173,23 +173,22 @@ export function SubmissionsPage() {
     <>
       <PageHeader crumbs={[{ label: 'Nội dung' }]} title="Bài nộp" subtitle="Bài giải case của người học. Mở bài để chấm theo tiêu chí và trả kết quả." />
 
-      <div className="tabs" role="tablist" aria-label="Lọc nhanh theo trạng thái">
-        {STATUS_TABS.map((t) => (
-          <button
-            key={t.value || 'all'}
-            type="button"
-            role="tab"
-            aria-selected={t.value === status}
-            className={t.value === status ? 'tab active' : 'tab'}
-            onClick={() => setStatus(t.value)}
-          >
-            {t.label}
-            {t.value === 'submitted' && pending.data && <span className="tab-count">{formatNumber(pending.data.total)}</span>}
-          </button>
-        ))}
-      </div>
-
       <Card>
+        <div className="tabs" role="tablist" aria-label="Lọc nhanh theo trạng thái">
+          {STATUS_TABS.map((t) => (
+            <button
+              key={t.value || 'all'}
+              type="button"
+              role="tab"
+              aria-selected={t.value === status}
+              className={t.value === status ? 'tab active' : 'tab'}
+              onClick={() => setStatus(t.value)}
+            >
+              {t.label}
+              {t.value === 'submitted' && pending.data && <span className="tab-count">{formatNumber(pending.data.total)}</span>}
+            </button>
+          ))}
+        </div>
         <FilterBar>
           <SearchBox value={search} onChange={setSearch} placeholder="Tìm tên, email người làm, tiêu đề case" />
           <Select

@@ -5,7 +5,7 @@ import { useForm, useWatch, type Path } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useBlocker } from 'react-router-dom'
-import { Bot, Check, Save, Send } from 'lucide-react'
+import { Bot, Check, ClipboardCheck, Save, Send } from 'lucide-react'
 import { ApiError, errorMessage, submissionApi } from '@/api'
 import { Badge, Button, Card, ConfirmDialog, ErrorBox, Field, Icon, InfoBox, Input, Textarea } from '@/components/ui'
 import { useToast } from '@/contexts/toast'
@@ -108,7 +108,7 @@ export function GradePanel({ s, criteria }: Props) {
   )
 
   return (
-    <Card title="Chấm bài" subtitle="Điểm từng tiêu chí theo thang của case" actions={headerActions}>
+    <Card icon={ClipboardCheck} title="Chấm bài" subtitle="Điểm từng tiêu chí theo thang của case" actions={headerActions}>
       {locked ? (
         <InfoBox>
           {s.status === 'draft' ? (

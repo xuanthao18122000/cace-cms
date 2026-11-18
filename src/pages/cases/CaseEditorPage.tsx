@@ -4,7 +4,7 @@ import { Controller, useForm, useWatch } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { Link, useBlocker, useNavigate, useParams } from 'react-router-dom'
-import { ArrowLeft, ArrowRight, Check, ExternalLink, SearchX, Trash2 } from 'lucide-react'
+import { ArrowLeft, ArrowRight, BookOpenText, Check, ExternalLink, FileText, Image as ImageIcon, Lightbulb, SearchX, Send, Tags, Timer, Trash2 } from 'lucide-react'
 import { ApiError, caseApi, errorMessage } from '@/api'
 import { RichTextEditor } from '@/components/editor/RichTextEditor'
 import {
@@ -303,7 +303,7 @@ function CaseForm({ item }: { item: AdminCase | null }) {
 
       <form className="case-editor" onSubmit={onSubmit} noValidate autoComplete="off">
         <div className="case-main">
-          <Card title="Thông tin chung">
+          <Card icon={FileText} title="Thông tin chung">
             <Field label="Tiêu đề" htmlFor="c-title" required error={errors.title?.message}>
               <Input
                 id="c-title"
@@ -356,7 +356,7 @@ function CaseForm({ item }: { item: AdminCase | null }) {
             </Field>
           </Card>
 
-          <Card title="Nội dung đề" subtitle="Bối cảnh, số liệu, yêu cầu. Viết trực tiếp, tải PDF, hoặc cả hai.">
+          <Card icon={BookOpenText} title="Nội dung đề" subtitle="Bối cảnh, số liệu, yêu cầu. Viết trực tiếp, tải PDF, hoặc cả hai.">
             <Controller
               control={control}
               name="content"
@@ -395,6 +395,7 @@ function CaseForm({ item }: { item: AdminCase | null }) {
           />
 
           <CollapsibleCard
+            icon={Lightbulb}
             title="Dẫn giải mẫu"
             subtitle="Người học chỉ thấy sau khi bài nộp của họ đã khoá (hết thời gian rút bài)"
             defaultOpen={Boolean(item?.solutionContent || item?.solutionPdfUrl)}
@@ -435,7 +436,7 @@ function CaseForm({ item }: { item: AdminCase | null }) {
         </div>
 
         <aside className="case-side">
-          <Card title="Xuất bản">
+          <Card icon={Send} title="Xuất bản">
             <Field label="Trạng thái" htmlFor="c-status" error={errors.status?.message}>
               <Controller
                 control={control}
@@ -480,7 +481,7 @@ function CaseForm({ item }: { item: AdminCase | null }) {
             )}
           </Card>
 
-          <Card title="Ảnh bìa">
+          <Card icon={ImageIcon} title="Ảnh bìa">
             <Controller
               control={control}
               name="coverUrl"
@@ -489,7 +490,7 @@ function CaseForm({ item }: { item: AdminCase | null }) {
             {errors.coverUrl && <div className="field-error">{errors.coverUrl.message}</div>}
           </Card>
 
-          <Card title="Phân loại">
+          <Card icon={Tags} title="Phân loại">
             <Field label="Lĩnh vực" htmlFor="c-field" error={errors.fieldId?.message}>
               <Controller
                 control={control}
@@ -541,7 +542,7 @@ function CaseForm({ item }: { item: AdminCase | null }) {
             </FormRow>
           </Card>
 
-          <Card title="Làm bài">
+          <Card icon={Timer} title="Làm bài">
             <Field label="Số lần làm tối đa" htmlFor="c-attempts" error={errors.maxAttempts?.message}>
               <Input
                 id="c-attempts"

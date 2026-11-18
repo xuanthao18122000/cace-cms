@@ -1,7 +1,7 @@
 import { useState, type ReactNode } from 'react'
 import clsx from 'clsx'
 import { Link } from 'react-router-dom'
-import { ChevronDown, CircleAlert, Inbox, RotateCw } from 'lucide-react'
+import { ArrowRight, ChevronDown, CircleAlert, Inbox, RotateCw } from 'lucide-react'
 import { errorMessage } from '@/api'
 import { Button } from './Button'
 import { IconTile, Skeleton } from './Display'
@@ -42,6 +42,8 @@ export function PageHeader({ crumbs, title, subtitle, actions }: PageHeaderProps
 /* ---------- Card ---------- */
 
 interface CardProps {
+  /** Icon nhỏ màu thương hiệu bên trái tiêu đề */
+  icon?: IconType
   title?: ReactNode
   subtitle?: ReactNode
   actions?: ReactNode
@@ -50,13 +52,22 @@ interface CardProps {
   className?: string
 }
 
-export function Card({ title, subtitle, actions, children, highlight, className }: CardProps) {
+export function Card({ icon, title, subtitle, actions, children, highlight, className }: CardProps) {
   return (
     <div className={clsx('card', highlight && 'highlight', className)}>
       {(title || actions) && (
         <div className="card-head">
           <div className="min-w-0">
-            {title && <div className="card-title">{title}</div>}
+            {title && (
+              <div className="card-title">
+                {icon && (
+                  <span className="card-title-icon" aria-hidden="true">
+                    <Icon icon={icon} />
+                  </span>
+                )}
+                {title}
+              </div>
+            )}
             {subtitle && <div className="card-sub">{subtitle}</div>}
           </div>
           {actions}
@@ -69,12 +80,14 @@ export function Card({ title, subtitle, actions, children, highlight, className 
 
 /** Card thu gọn được: bấm đầu card để mở/đóng. Đóng thì không vẽ nội dung. */
 export function CollapsibleCard({
+  icon,
   title,
   subtitle,
   defaultOpen = false,
   forceOpen,
   children,
 }: {
+  icon?: IconType
   title: ReactNode
   subtitle?: ReactNode
   defaultOpen?: boolean
@@ -88,13 +101,30 @@ export function CollapsibleCard({
     <div className={clsx('card collapsible', open && 'open')}>
       <button type="button" className="card-head collapsible-head" aria-expanded={open} onClick={() => setOpen(!open)}>
         <div className="min-w-0">
-          <div className="card-title">{title}</div>
+          <div className="card-title">
+            {icon && (
+              <span className="card-title-icon" aria-hidden="true">
+                <Icon icon={icon} />
+              </span>
+            )}
+            {title}
+          </div>
           {subtitle && <div className="card-sub">{subtitle}</div>}
         </div>
         <Icon icon={ChevronDown} className="collapsible-caret" />
       </button>
       {open && children}
     </div>
+  )
+}
+
+/** Liên kết "Xem tất cả →" đặt ở góc phải đầu card */
+export function CardLink({ to, children = 'Xem tất cả' }: { to: string; children?: ReactNode }) {
+  return (
+    <Link to={to} className="card-link">
+      {children}
+      <Icon icon={ArrowRight} />
+    </Link>
   )
 }
 

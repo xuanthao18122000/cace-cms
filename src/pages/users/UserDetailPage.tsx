@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { useNavigate, useParams } from 'react-router-dom'
-import { ArrowLeft, KeyRound, Lock, LockOpen, Pencil, Trash2, UserX } from 'lucide-react'
+import { Activity, ArrowLeft, IdCard, KeyRound, Lock, LockOpen, Pencil, Trash2, UserX } from 'lucide-react'
 import { ApiError, userApi } from '@/api'
 import {
   Avatar,
@@ -128,7 +128,7 @@ export function UserDetailPage() {
         </Card>
 
         <div className="stack">
-          <Card title="Thông tin tài khoản">
+          <Card icon={IdCard} title="Thông tin tài khoản">
             <KeyValueGrid
               columns={2}
               items={[
@@ -141,7 +141,7 @@ export function UserDetailPage() {
               ]}
             />
           </Card>
-          <Card title="Hoạt động">
+          <Card icon={Activity} title="Hoạt động">
             <KeyValueGrid
               columns={2}
               items={[

@@ -1,12 +1,13 @@
 import { useQuery } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
-import { FolderTree, LibraryBig, ShieldCheck, Sparkles, UserCheck, UserLock, UserPlus, UserRound, Users } from 'lucide-react'
+import { ChartColumn, FolderTree, LibraryBig, ShieldCheck, Sparkles, UserCheck, UserLock, UserPlus, UserRound, Users, Zap } from 'lucide-react'
 import { statsApi } from '@/api'
 import {
   ActionRow,
   Avatar,
   Button,
   Card,
+  CardLink,
   EmptyState,
   ErrorState,
   PageHeader,
@@ -71,7 +72,7 @@ function AdminDashboard() {
       </div>
 
       <div className="grid g21 top">
-        <Card title="Người dùng theo vai trò" subtitle="Tỉ lệ trên tổng số tài khoản">
+        <Card icon={ChartColumn} title="Người dùng theo vai trò" subtitle="Tỉ lệ trên tổng số tài khoản" actions={<CardLink to="/users" />}>
           {loading ? (
             <div className="bar-list">
               {Array.from({ length: 3 }, (_, i) => (
@@ -100,7 +101,7 @@ function AdminDashboard() {
           )}
         </Card>
 
-        <Card title="Lối tắt">
+        <Card icon={Zap} title="Lối tắt">
           <div className="action-list">
             <ActionRow icon={UserPlus} title="Thêm người dùng" subtitle="Tạo tài khoản mentor, quản trị viên" onClick={() => navigate('/users?new=1')} />
             <ActionRow icon={Users} tone="blue" title="Quản lý người dùng" subtitle="Tìm, khoá, đặt lại mật khẩu" onClick={() => navigate('/users')} />
@@ -149,7 +150,7 @@ function StaffWelcome() {
           </div>
         </div>
       </Card>
-      <Card title="Lối tắt">
+      <Card icon={Zap} title="Lối tắt">
         <div className="action-list">
           {content && (
             <>

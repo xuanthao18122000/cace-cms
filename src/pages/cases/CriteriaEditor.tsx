@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 import { useFieldArray, useWatch, type Control, type FieldErrors, type UseFormRegister, type UseFormSetValue } from 'react-hook-form'
-import { ArrowDown, ArrowUp, Plus, RotateCcw, Scale, Trash2 } from 'lucide-react'
+import { ArrowDown, ArrowUp, ListChecks, Plus, RotateCcw, Scale, Trash2 } from 'lucide-react'
 import { Button, Card, DataTable, ErrorBox, IconButton, InfoBox, Input, Textarea, type Column } from '@/components/ui'
 import {
   CRITERIA_MAX,
@@ -61,7 +61,7 @@ export function CriteriaEditor({ control, register, setValue, errors, locked, sa
 
   if (locked) {
     return (
-      <Card title="Tiêu chí chấm" subtitle="Người học tự đánh giá và mentor chấm theo các tiêu chí này" actions={indicator}>
+      <Card icon={ListChecks} title="Tiêu chí chấm" subtitle="Người học tự đánh giá và mentor chấm theo các tiêu chí này" actions={indicator}>
         <InfoBox>Đã có bài nộp — không đổi tiêu chí được.</InfoBox>
         <div className="mt16">
           <DataTable columns={readonlyColumns} rows={savedCriteria.map((c, i) => ({ ...c, no: i + 1 }))} rowKey={(c) => String(c.no)} />
@@ -75,7 +75,7 @@ export function CriteriaEditor({ control, register, setValue, errors, locked, sa
   }
 
   return (
-    <Card title="Tiêu chí chấm" subtitle="Người học tự đánh giá và mentor chấm theo các tiêu chí này" actions={indicator}>
+    <Card icon={ListChecks} title="Tiêu chí chấm" subtitle="Người học tự đánh giá và mentor chấm theo các tiêu chí này" actions={indicator}>
       <div className="criteria-list">
         <div className="criteria-head" aria-hidden="true">
           <span>#</span>

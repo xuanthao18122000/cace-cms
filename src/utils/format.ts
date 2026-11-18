@@ -40,10 +40,11 @@ export function formatBytes(bytes: number | null | undefined) {
   return `${(bytes / 1024 / 1024).toLocaleString('vi-VN', { maximumFractionDigits: 1 })} MB`
 }
 
+/** Chữ tắt avatar — luôn 2 chữ: hai từ cuối ("Trần Minh Khoa" → "MK"), tên một từ lấy 2 ký tự đầu. */
 export function initials(name: string) {
-  const parts = name.trim().split(/\s+/).filter(Boolean)
+  const parts = (name ?? '').normalize('NFC').trim().split(/\s+/).filter(Boolean)
   if (parts.length === 0) return '?'
-  const first = parts.length > 1 ? parts[parts.length - 2][0] : ''
-  const last = parts[parts.length - 1][0]
-  return (first + last).toUpperCase()
+  const chars = (s: string) => Array.from(s.replace(/[^\p{L}\p{N}]/gu, '') || s)
+  if (parts.length === 1) return chars(parts[0]).slice(0, 2).join('').toUpperCase()
+  return ((chars(parts[parts.length - 2])[0] ?? '') + (chars(parts[parts.length - 1])[0] ?? '')).toUpperCase()
 }

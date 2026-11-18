@@ -2,7 +2,7 @@ import { Controller, useForm, useWatch } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { Check, KeyRound } from 'lucide-react'
+import { Check, KeyRound, UserRound } from 'lucide-react'
 import { authApi, errorMessage } from '@/api'
 import { AvatarUpload } from '@/components/AvatarUpload'
 import { Avatar, Button, Card, Field, FormRow, Input, KeyValueGrid, PageHeader, PasswordInput } from '@/components/ui'
@@ -85,7 +85,7 @@ function ProfileForm({ user }: { user: User }) {
   })
 
   return (
-    <Card title="Thông tin cá nhân" subtitle="Hiện trong trang quản trị và trên nền tảng CACE">
+    <Card icon={UserRound} title="Thông tin cá nhân" subtitle="Hiện trong trang quản trị và trên nền tảng CACE">
       <form onSubmit={handleSubmit((v) => mutation.mutate(v))} noValidate>
         <Controller
           control={control}
@@ -150,7 +150,7 @@ function PasswordForm() {
   })
 
   return (
-    <Card title="Đổi mật khẩu" subtitle="Tối thiểu 8 ký tự, có cả chữ và số">
+    <Card icon={KeyRound} title="Đổi mật khẩu" subtitle="Tối thiểu 8 ký tự, có cả chữ và số">
       <form onSubmit={handleSubmit((v) => mutation.mutate(v))} noValidate>
         <Field label="Mật khẩu hiện tại" htmlFor="currentPassword" required error={errors.currentPassword?.message}>
           <PasswordInput id="currentPassword" autoComplete="current-password" invalid={Boolean(errors.currentPassword)} {...register('currentPassword')} />
