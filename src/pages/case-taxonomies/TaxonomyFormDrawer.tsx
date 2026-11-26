@@ -22,6 +22,7 @@ interface Props {
 
 const schema = z.object({
   name: z.string().trim().min(2, 'Nhập tên (tối thiểu 2 ký tự)').max(100, 'Tối đa 100 ký tự'),
+  nameEn: z.string().trim().max(100, 'Tối đa 100 ký tự'),
   description: z.string().trim().max(500, 'Tối đa 500 ký tự'),
   sortOrder: z
     .string()
@@ -31,7 +32,7 @@ const schema = z.object({
 })
 type FormValues = z.infer<typeof schema>
 
-const FIELDS = ['name', 'description', 'sortOrder', 'isActive'] as const
+const FIELDS = ['name', 'nameEn', 'description', 'sortOrder', 'isActive'] as const
 
 export function TaxonomyFormDrawer(props: Props) {
   if (!props.open) return null
@@ -52,6 +53,7 @@ function TaxonomyForm({ type, taxonomy, nextSortOrder, onClose, onSaved }: Props
     resolver: zodResolver(schema),
     defaultValues: {
       name: taxonomy?.name ?? '',
+      nameEn: taxonomy?.nameEn ?? '',
       description: taxonomy?.description ?? '',
       sortOrder: String(taxonomy?.sortOrder ?? nextSortOrder),
       isActive: taxonomy?.isActive ?? true,
@@ -60,7 +62,7 @@ function TaxonomyForm({ type, taxonomy, nextSortOrder, onClose, onSaved }: Props
 
   const mutation = useMutation({
     mutationFn: (v: FormValues) => {
-      const body = { name: v.name, description: v.description || null, sortOrder: Number(v.sortOrder), isActive: v.isActive }
+      const body = { name: v.name, nameEn: v.nameEn || null, description: v.description || null, sortOrder: Number(v.sortOrder), isActive: v.isActive }
       return isEdit ? taxonomyApi.update(taxonomy.id, body) : taxonomyApi.create({ type, ...body })
     },
     onSuccess: (saved) => {
@@ -88,6 +90,9 @@ function TaxonomyForm({ type, taxonomy, nextSortOrder, onClose, onSaved }: Props
       <FormCard title={`Thông tin ${label.toLowerCase()}`}>
         <Field label="Tên" htmlFor="t-name" required error={errors.name?.message}>
           <Input id="t-name" placeholder={type === 'level' ? 'Vd: Gà con' : type === 'field' ? 'Vd: Marketing' : 'Vd: Bán lẻ & FMCG'} invalid={Boolean(errors.name)} {...register('name')} />
+        </Field>
+        <Field label="Tên tiếng Anh" htmlFor="t-name-en" error={errors.nameEn?.message} hint="Hiện khi người xem chọn EN; để trống thì dùng tên tiếng Việt">
+          <Input id="t-name-en" placeholder={type === 'level' ? 'Vd: Chick' : type === 'field' ? 'Vd: Marketing' : 'Vd: Retail & FMCG'} invalid={Boolean(errors.nameEn)} {...register('nameEn')} />
         </Field>
         <Field label="Mô tả" htmlFor="t-desc" error={errors.description?.message}>
           <Textarea id="t-desc" rows={3} placeholder="Không bắt buộc" invalid={Boolean(errors.description)} {...register('description')} />

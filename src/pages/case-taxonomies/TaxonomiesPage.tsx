@@ -80,7 +80,12 @@ export function TaxonomiesPage() {
       key: 'name',
       header: 'Tên',
       main: true,
-      render: (t) => <span className="entity-title">{t.name}</span>,
+      render: (t) => (
+        <span>
+          <span className="entity-title">{t.name}</span>
+          <span className="entity-sub">EN: {t.nameEn || 'chưa có'}</span>
+        </span>
+      ),
     },
     { key: 'slug', header: 'Đường dẫn', hideOnMobile: true, render: (t) => <span className="code-tag">{t.slug}</span> },
     {

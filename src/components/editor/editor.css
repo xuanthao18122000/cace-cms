@@ -235,7 +235,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: rgb(33 91 238 / 0.08);
+  background: rgb(0 56 230 / 0.08);
   pointer-events: none;
 }
 

@@ -34,11 +34,11 @@
 
 .btn-primary:hover:not(:disabled) {
   background: var(--g-accent-hover);
-  box-shadow: 0 10px 20px -10px rgb(33 91 238 / 0.95);
+  box-shadow: 0 10px 20px -10px rgb(0 56 230 / 0.95);
 }
 
 .btn-primary:active:not(:disabled) {
-  box-shadow: 0 4px 10px -6px rgb(33 91 238 / 0.9);
+  box-shadow: 0 4px 10px -6px rgb(0 56 230 / 0.9);
 }
 
 .btn-secondary {

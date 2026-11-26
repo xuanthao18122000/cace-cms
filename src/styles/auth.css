@@ -43,7 +43,7 @@
   bottom: -140px;
   width: 420px;
   height: 420px;
-  background: radial-gradient(circle at 30% 30%, rgba(157, 182, 255, 0.55), rgba(33, 91, 238, 0) 70%);
+  background: radial-gradient(circle at 30% 30%, rgba(157, 182, 255, 0.55), rgba(0, 56, 230, 0) 70%);
 }
 
 .auth-orb.two {

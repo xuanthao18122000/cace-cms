@@ -2,15 +2,15 @@
  * Design tokens CACE CMS. Mọi màu, bo góc, bóng đổ lấy từ đây; component không tự đặt mã màu.
  */
 :root {
-  /* Màu thương hiệu CACE: thang Royal #215bee (giống cace-web) */
-  --primary-50: #eff4ff;
-  --primary-100: #dfe8fe;
-  --primary-200: #c0d2fd;
-  --primary-300: #93b3fa;
-  --primary-500: #3a70f1;
-  --primary-600: #215bee;
-  --primary-700: #1746c9;
-  --primary-800: #163a9f;
+  /* Màu thương hiệu CACE theo brand guideline: Vivid Blue Violet #0038E6 (giống cace-web) */
+  --primary-50: #eef3ff;
+  --primary-100: #dce6ff;
+  --primary-200: #bccdff;
+  --primary-300: #8eabff;
+  --primary-500: #2a58f2;
+  --primary-600: #0038e6;
+  --primary-700: #002ec0;
+  --primary-800: #00279a;
 
   --accent: var(--primary-600);
   --accent-hover: var(--primary-700);
@@ -20,8 +20,8 @@
   --g-accent: var(--primary-600);
   --g-accent-hover: var(--primary-700);
   /* Nút chính: bóng màu mềm kiểu chodev */
-  --sh-accent: 0 8px 18px -10px rgb(33 91 238 / 0.9);
-  --g-brand-panel: radial-gradient(120% 90% at 0% 0%, #3a70f1 0%, #215bee 45%, #163a9f 100%);
+  --sh-accent: 0 8px 18px -10px rgb(0 56 230 / 0.9);
+  --g-brand-panel: radial-gradient(120% 90% at 0% 0%, #2a58f2 0%, #0038e6 45%, #04044a 100%);
 
   /* Chữ */
   --ink: #111a33;
@@ -75,7 +75,7 @@
   /* Bóng */
   /* Panel trắng: viền mảnh + bóng rất nhẹ */
   --sh-card: 0 1px 2px rgb(16 24 40 / 0.04);
-  --sh-card-hover: 0 1px 2px rgb(16 24 40 / 0.04), 0 8px 24px -12px rgb(33 91 238 / 0.18);
+  --sh-card-hover: 0 1px 2px rgb(16 24 40 / 0.04), 0 8px 24px -12px rgb(0 56 230 / 0.18);
   --sh-pop: 0 12px 40px rgba(17, 26, 51, 0.16);
   --sh-btn: 0 1px 2px rgb(16 24 40 / 0.04);
   --ring: 0 0 0 4px var(--primary-100);

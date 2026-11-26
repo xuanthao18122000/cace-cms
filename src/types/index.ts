@@ -129,6 +129,8 @@ export interface Taxonomy {
   id: string
   type: TaxonomyType
   name: string
+  /** Tên tiếng Anh, web hiện khi người xem chọn EN. */
+  nameEn: string | null
   slug: string
   description: string | null
   sortOrder: number
@@ -190,6 +192,7 @@ export interface DocumentUploadResult extends UploadResult {
 export interface TaxonomyInput {
   type: TaxonomyType
   name: string
+  nameEn?: string | null
   description?: string | null
   sortOrder?: number
   isActive?: boolean
@@ -549,6 +552,7 @@ export interface Skill {
   id: string
   code: string
   name: string
+  nameEn: string | null
   description: string | null
   icon: string
   color: string
@@ -559,6 +563,7 @@ export interface Skill {
 export interface SkillInput {
   code?: string
   name?: string
+  nameEn?: string | null
   description?: string | null
   icon?: string
   color?: string

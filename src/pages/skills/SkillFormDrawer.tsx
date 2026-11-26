@@ -20,6 +20,7 @@ interface Props {
 
 const schema = z.object({
   name: z.string().trim().min(2, 'Nhập tên (tối thiểu 2 ký tự)').max(80, 'Tối đa 80 ký tự'),
+  nameEn: z.string().trim().max(80, 'Tối đa 80 ký tự'),
   code: z
     .string()
     .trim()
@@ -36,7 +37,7 @@ const schema = z.object({
 })
 type FormValues = z.infer<typeof schema>
 
-const FIELDS = ['name', 'code', 'description', 'icon', 'color', 'sortOrder', 'isActive'] as const
+const FIELDS = ['name', 'nameEn', 'code', 'description', 'icon', 'color', 'sortOrder', 'isActive'] as const
 
 /** Bỏ dấu tiếng Việt để gợi ý mã kỹ năng từ tên. */
 const slugify = (s: string) =>
@@ -69,6 +70,7 @@ function SkillForm({ skill, nextSortOrder, onClose, onSaved }: Props) {
     resolver: zodResolver(schema),
     defaultValues: {
       name: skill?.name ?? '',
+      nameEn: skill?.nameEn ?? '',
       code: skill?.code ?? '',
       description: skill?.description ?? '',
       icon: skill?.icon ?? 'sparkles',
@@ -81,7 +83,7 @@ function SkillForm({ skill, nextSortOrder, onClose, onSaved }: Props) {
 
   const mutation = useMutation({
     mutationFn: (v: FormValues) => {
-      const body = { ...v, description: v.description || null, sortOrder: Number(v.sortOrder) }
+      const body = { ...v, nameEn: v.nameEn || null, description: v.description || null, sortOrder: Number(v.sortOrder) }
       return isEdit ? skillApi.update(skill.id, body) : skillApi.create(body)
     },
     onSuccess: (saved) => {
@@ -121,6 +123,9 @@ function SkillForm({ skill, nextSortOrder, onClose, onSaved }: Props) {
               if (!isEdit && !dirtyFields.code) setValue('code', slugify(e.target.value), { shouldValidate: Boolean(getValues('code')) })
             }}
           />
+        </Field>
+        <Field label="Tên tiếng Anh" htmlFor="s-name-en" error={errors.nameEn?.message} hint="Hiện khi người xem chọn EN; để trống thì dùng tên tiếng Việt">
+          <Input id="s-name-en" placeholder="Vd: Creativity & content" invalid={Boolean(errors.nameEn)} {...register('nameEn')} />
         </Field>
         <Field
           label="Mã"

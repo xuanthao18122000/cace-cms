@@ -107,6 +107,7 @@ function SkillsTab() {
           <span className="skill-dot" style={{ background: s.color }} aria-hidden />
           <span>
             <span className="entity-title">{s.name}</span>
+            <span className="entity-sub">EN: {s.nameEn || 'chưa có'}</span>
             {s.description && <span className="entity-sub">{s.description}</span>}
           </span>
         </span>
