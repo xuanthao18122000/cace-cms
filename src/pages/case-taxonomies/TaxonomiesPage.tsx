@@ -88,7 +88,7 @@ export function TaxonomiesPage() {
       header: 'Mô tả',
       hideOnMobile: true,
       className: 'col-desc',
-      render: (t) => t.description || <span className="mo">—</span>,
+      render: (t) => t.description || <span className="mo">-</span>,
     },
     { key: 'sort', header: 'Thứ tự', hideOnMobile: true, className: 'is-num', render: (t) => <span className="num">{t.sortOrder}</span> },
     {

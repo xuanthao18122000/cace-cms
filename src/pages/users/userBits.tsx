@@ -1,4 +1,4 @@
-import { BadgeCheck, CircleDashed } from 'lucide-react'
+import { BadgeCheck, CircleDashed, Crown } from 'lucide-react'
 import { Badge, type Tone } from '@/components/ui'
 import type { RoleRef, UserStatus } from '@/types'
 import { STATUS_LABEL } from './userLabels'
@@ -26,6 +26,17 @@ export function VerifiedBadge({ verified }: { verified: boolean }) {
   ) : (
     <Badge tone="mute" icon={CircleDashed}>
       Chưa xác minh
+    </Badge>
+  )
+}
+
+/** Huy hiệu Premium (chỉ hiện khi gói còn hạn) */
+export function PremiumBadge({ user }: { user: { isPremium?: boolean; premiumUntil?: string | null } }) {
+  if (!user.isPremium) return null
+  const until = user.premiumUntil ? new Date(user.premiumUntil).toLocaleDateString('vi-VN') : null
+  return (
+    <Badge tone="yellow" icon={Crown} title={until ? `Premium tới ${until}` : 'Premium'}>
+      Premium
     </Badge>
   )
 }

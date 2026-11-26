@@ -10,4 +10,8 @@ export const userApi = {
   resetPassword: (id: string, password: string) =>
     request<null>(`/admin/users/${id}/reset-password`, { method: 'POST', body: { password } }),
   remove: (id: string) => request<null>(`/admin/users/${id}`, { method: 'DELETE' }),
+  /** Cấp Premium: `days` cộng nối tiếp hạn hiện tại, hoặc `until` (ISO) đặt đúng ngày hết hạn */
+  grantPremium: (id: string, input: { days: number } | { until: string }) =>
+    request<User>(`/admin/users/${id}/premium`, { method: 'PUT', body: input }),
+  revokePremium: (id: string) => request<User>(`/admin/users/${id}/premium`, { method: 'DELETE' }),
 }

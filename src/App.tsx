@@ -23,9 +23,16 @@ const SubmissionsPage = lazy(() => import('@/pages/submissions/SubmissionsPage')
 const SubmissionDetailPage = lazy(() => import('@/pages/submissions/SubmissionDetailPage').then((m) => ({ default: m.SubmissionDetailPage })))
 const CompetitionsPage = lazy(() => import('@/pages/competitions/CompetitionsPage').then((m) => ({ default: m.CompetitionsPage })))
 const CompetitionEditorPage = lazy(() => import('@/pages/competitions/CompetitionEditorPage').then((m) => ({ default: m.CompetitionEditorPage })))
+const CompetitionSuggestionsPage = lazy(() => import('@/pages/competitions/CompetitionSuggestionsPage').then((m) => ({ default: m.CompetitionSuggestionsPage })))
 const TeamPostsPage = lazy(() => import('@/pages/team-posts/TeamPostsPage').then((m) => ({ default: m.TeamPostsPage })))
 const TaxonomiesPage = lazy(() => import('@/pages/case-taxonomies/TaxonomiesPage').then((m) => ({ default: m.TaxonomiesPage })))
+const XpRulesPage = lazy(() => import('@/pages/xp-rules/XpRulesPage').then((m) => ({ default: m.XpRulesPage })))
+const SkillsPage = lazy(() => import('@/pages/skills/SkillsPage').then((m) => ({ default: m.SkillsPage })))
+const SkillOverviewPage = lazy(() => import('@/pages/skills/SkillOverviewPage').then((m) => ({ default: m.SkillOverviewPage })))
+const LearnerProfilesPage = lazy(() => import('@/pages/learner-profiles/LearnerProfilesPage').then((m) => ({ default: m.LearnerProfilesPage })))
+const ApprovalSettingsPage = lazy(() => import('@/pages/approvals/ApprovalSettingsPage').then((m) => ({ default: m.ApprovalSettingsPage })))
 const CoachWaitlistPage = lazy(() => import('@/pages/waitlist/CoachWaitlistPage').then((m) => ({ default: m.CoachWaitlistPage })))
+const SupportReportsPage = lazy(() => import('@/pages/support-reports/SupportReportsPage').then((m) => ({ default: m.SupportReportsPage })))
 
 // Data router: cần cho useBlocker (cảnh báo rời trang khi chưa lưu)
 const router = createBrowserRouter(
@@ -50,13 +57,20 @@ const router = createBrowserRouter(
             <Route path="/competitions" element={<CompetitionsPage />} />
             <Route path="/competitions/new" element={<CompetitionEditorPage />} />
             <Route path="/competitions/:id" element={<CompetitionEditorPage />} />
+            <Route path="/competition-suggestions" element={<CompetitionSuggestionsPage />} />
             <Route path="/team-posts" element={<TeamPostsPage />} />
+            <Route path="/learner-profiles" element={<LearnerProfilesPage />} />
+            <Route path="/skill-overview" element={<SkillOverviewPage />} />
+            <Route path="/support-reports" element={<SupportReportsPage />} />
           </Route>
           <Route element={<RequireAdmin />}>
             <Route path="/users" element={<UsersPage />} />
             <Route path="/users/:id" element={<UserDetailPage />} />
             <Route path="/roles" element={<RolesPage />} />
             <Route path="/waitlist/coach" element={<CoachWaitlistPage />} />
+            <Route path="/approval-settings" element={<ApprovalSettingsPage />} />
+            <Route path="/skills" element={<SkillsPage />} />
+            <Route path="/xp-rules" element={<XpRulesPage />} />
           </Route>
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="*" element={<NotFoundPage />} />

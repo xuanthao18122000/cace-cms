@@ -36,6 +36,7 @@ export const caseSchema = z.object({
   coverUrl: z.string().nullable(),
   pdf: z.object({ url: z.string(), name: z.string(), size: z.number().nullable() }).nullable(),
   difficulty: z.enum(['easy', 'medium', 'hard']),
+  mode: z.enum(['individual', 'team', 'both']),
   estimatedMinutes: z
     .string()
     .trim()
@@ -45,6 +46,7 @@ export const caseSchema = z.object({
   levelId: z.string(),
   status: z.enum(['draft', 'published', 'hidden']),
   isFeatured: z.boolean(),
+  isFree: z.boolean(),
   // Làm bài
   unlimitedAttempts: z.boolean(),
   // Bật "Không giới hạn" thì ô số bị khoá và luôn giữ giá trị hợp lệ (xem SubmitSettings)
@@ -76,12 +78,14 @@ export const CASE_FIELDS = [
   'coverUrl',
   'pdf',
   'difficulty',
+  'mode',
   'estimatedMinutes',
   'fieldId',
   'industryId',
   'levelId',
   'status',
   'isFeatured',
+  'isFree',
   'maxAttempts',
   'editWindowMinutes',
   'solutionContent',
@@ -132,12 +136,14 @@ export const toCaseValues = (c: AdminCase | null, keep?: { content: string; solu
   coverUrl: c?.coverUrl ?? null,
   pdf: c?.pdfUrl ? { url: c.pdfUrl, name: c.pdfName || 'de-bai.pdf', size: c.pdfSize } : null,
   difficulty: c?.difficulty ?? 'medium',
+  mode: c?.mode ?? 'individual',
   estimatedMinutes: c?.estimatedMinutes ? String(c.estimatedMinutes) : '',
   fieldId: c?.field?.id ?? '',
   industryId: c?.industry?.id ?? '',
   levelId: c?.level?.id ?? '',
   status: c?.status ?? 'draft',
   isFeatured: c?.isFeatured ?? false,
+  isFree: c?.isFree ?? false,
   unlimitedAttempts: c ? c.maxAttempts === null : false,
   maxAttempts: String(c?.maxAttempts ?? DEFAULT_MAX_ATTEMPTS),
   editWindowMinutes: String(c?.editWindowMinutes ?? DEFAULT_EDIT_WINDOW),

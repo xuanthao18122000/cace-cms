@@ -89,9 +89,9 @@ export function CoachWaitlistPage() {
       header: 'Người đăng ký',
       main: true,
       skeleton: 'entity',
-      render: (r) => <EntityCell avatarName={r.name || r.email} title={r.name || '—'} subtitle={<span className="team-post-email">{r.email}</span>} />,
+      render: (r) => <EntityCell avatarName={r.name || r.email} title={r.name || '-'} subtitle={<span className="team-post-email">{r.email}</span>} />,
     },
-    { key: 'school', header: 'Trường', hideOnMobile: true, render: (r) => r.school || '—' },
+    { key: 'school', header: 'Trường', hideOnMobile: true, render: (r) => r.school || '-' },
     {
       key: 'created',
       header: 'Ngày đăng ký',

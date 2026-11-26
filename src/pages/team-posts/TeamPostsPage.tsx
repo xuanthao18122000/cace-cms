@@ -30,6 +30,7 @@ import { useTeamPostActions } from './useTeamPostActions'
 const TABS: { key: string; label: string; status: TeamPostStatus | '' }[] = [
   { key: 'all', label: 'Tất cả', status: '' },
   { key: 'open', label: 'Đang tìm', status: 'open' },
+  { key: 'paused', label: 'Tạm dừng', status: 'paused' },
   { key: 'closed', label: 'Đã đóng', status: 'closed' },
   { key: 'hidden', label: 'Đã ẩn', status: 'hidden' },
 ]
@@ -37,6 +38,7 @@ const TABS: { key: string; label: string; status: TeamPostStatus | '' }[] = [
 const EMPTY_BY_STATUS: Record<TeamPostStatus, string> = {
   open: 'Không có tin nào đang tìm đồng đội',
   closed: 'Chưa có tin nào đã đóng',
+  paused: 'Chưa có tin nào đang tạm dừng',
   hidden: 'Chưa có tin nào bị ẩn',
 }
 

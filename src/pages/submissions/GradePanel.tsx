@@ -17,7 +17,7 @@ import { formatGrade, formatScore } from './submissionLabels'
 import { computeTotal, FEEDBACK_MAX, gradeSchema, parseScore, toGradeValues, type GradeFormValues } from './gradeForm'
 
 /** dd/MM/yyyy HH:mm theo giờ máy */
-const formatStamp = (iso: string | null | undefined) => (iso ? format(parseISO(iso), 'dd/MM/yyyy HH:mm') : '—')
+const formatStamp = (iso: string | null | undefined) => (iso ? format(parseISO(iso), 'dd/MM/yyyy HH:mm') : '-')
 
 interface Props {
   s: AdminSubmissionDetail
@@ -112,7 +112,7 @@ export function GradePanel({ s, criteria }: Props) {
       {locked ? (
         <InfoBox>
           {s.status === 'draft' ? (
-            'Bài còn là nháp — người học chưa nộp nên chưa chấm được.'
+            'Bài còn là nháp - người học chưa nộp nên chưa chấm được.'
           ) : (
             <>
               Người học vẫn được rút bài tới <b>{formatStamp(s.editableUntil)}</b>. Có thể chấm sau thời điểm này.
@@ -131,7 +131,7 @@ export function GradePanel({ s, criteria }: Props) {
         </div>
       ) : grade ? (
         <InfoBox>
-          Bản nháp — người học chưa thấy
+          Bản nháp - người học chưa thấy
           {grade.grader && <> · {grade.grader.fullName}</>}
         </InfoBox>
       ) : null}
@@ -171,7 +171,7 @@ export function GradePanel({ s, criteria }: Props) {
                     <b className="num">
                       {formatScore(self.score)}/{c.maxScore}
                     </b>
-                    {self.note && <> — {self.note}</>}
+                    {self.note && <> - {self.note}</>}
                   </div>
                 )}
                 <Field label="Nhận xét" htmlFor={`gr-comment-${i}`} error={err?.comment?.message}>
@@ -213,7 +213,7 @@ export function GradePanel({ s, criteria }: Props) {
       </div>
 
       <div className="score-total" title="Σ (điểm / thang) × trọng số, quy về thang 10">
-        Tổng theo trọng số <strong>{total === null ? '—' : formatGrade(total)}</strong>/10
+        Tổng theo trọng số <strong>{total === null ? '-' : formatGrade(total)}</strong>/10
       </div>
 
       <div className="grade-actions">

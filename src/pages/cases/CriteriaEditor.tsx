@@ -62,7 +62,7 @@ export function CriteriaEditor({ control, register, setValue, errors, locked, sa
   if (locked) {
     return (
       <Card icon={ListChecks} title="Tiêu chí chấm" subtitle="Người học tự đánh giá và mentor chấm theo các tiêu chí này" actions={indicator}>
-        <InfoBox>Đã có bài nộp — không đổi tiêu chí được.</InfoBox>
+        <InfoBox>Đã có bài nộp - không đổi tiêu chí được.</InfoBox>
         <div className="mt16">
           <DataTable columns={readonlyColumns} rows={savedCriteria.map((c, i) => ({ ...c, no: i + 1 }))} rowKey={(c) => String(c.no)} />
         </div>

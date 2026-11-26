@@ -7,18 +7,18 @@ const parse = (value: string | null | undefined) => {
   return isValid(d) ? d : null
 }
 
-export function formatDate(value: string | null | undefined, fallback = '—') {
+export function formatDate(value: string | null | undefined, fallback = '-') {
   const d = parse(value)
   return d ? format(d, 'dd/MM/yyyy', { locale: vi }) : fallback
 }
 
-export function formatDateTime(value: string | null | undefined, fallback = '—') {
+export function formatDateTime(value: string | null | undefined, fallback = '-') {
   const d = parse(value)
   return d ? format(d, 'HH:mm dd/MM/yyyy', { locale: vi }) : fallback
 }
 
 /** "3 phút trước", "2 ngày trước" */
-export function formatRelative(value: string | null | undefined, fallback = '—') {
+export function formatRelative(value: string | null | undefined, fallback = '-') {
   const d = parse(value)
   return d ? formatDistanceToNowStrict(d, { addSuffix: true, locale: vi }) : fallback
 }
@@ -34,13 +34,13 @@ export const formatNumber = (n: number) => numberFormat.format(n)
 
 /** Dung lượng tệp: "820 KB", "3,4 MB" */
 export function formatBytes(bytes: number | null | undefined) {
-  if (bytes === null || bytes === undefined) return '—'
+  if (bytes === null || bytes === undefined) return '-'
   if (bytes < 1024) return `${bytes} B`
   if (bytes < 1024 * 1024) return `${Math.round(bytes / 1024)} KB`
   return `${(bytes / 1024 / 1024).toLocaleString('vi-VN', { maximumFractionDigits: 1 })} MB`
 }
 
-/** Chữ tắt avatar — luôn 2 chữ: hai từ cuối ("Trần Minh Khoa" → "MK"), tên một từ lấy 2 ký tự đầu. */
+/** Chữ tắt avatar - luôn 2 chữ: hai từ cuối ("Trần Minh Khoa" → "MK"), tên một từ lấy 2 ký tự đầu. */
 export function initials(name: string) {
   const parts = (name ?? '').normalize('NFC').trim().split(/\s+/).filter(Boolean)
   if (parts.length === 0) return '?'

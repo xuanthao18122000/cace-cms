@@ -35,16 +35,19 @@ import { toSlug } from '@/utils/text'
 import { CoverUpload } from '../cases/CoverUpload'
 import { CompetitionStatusBadge, PhaseBadge } from './competitionBits'
 import { CompetitionProposalCard } from './CompetitionProposalCard'
+import { CompetitionExtrasCards } from './CompetitionExtrasCards'
 import {
   COMPETITION_FIELDS,
   competitionSchema,
+  extrasToInput,
+  prizeTotalOf,
   SUMMARY_MAX,
   TEAM_MAX,
   TEAM_MIN,
   toCompetitionValues,
   type CompetitionFormValues,
 } from './competitionForm'
-import { isEditableStatus, isReviewStatus, isoToLocalInput, localInputToIso, STATUS_LABEL } from './competitionLabels'
+import { COMPETITION_FIELD_OPTIONS, isEditableStatus, isReviewStatus, isoToLocalInput, localInputToIso, STATUS_LABEL } from './competitionLabels'
 import { useCompetitionActions } from './useCompetitionActions'
 
 type FormValues = CompetitionFormValues
@@ -114,7 +117,10 @@ function CompetitionForm({ item }: { item: AdminCompetition | null }) {
     formState: { errors, isDirty, isSubmitted },
   } = useForm<FormValues>({ resolver: zodResolver(competitionSchema), defaultValues: toCompetitionValues(item) })
 
-  const [summary, status] = useWatch({ control, name: ['summary', 'status'] })
+  const [summary, status, prizeFirst, prizeSecond, prizeThird] = useWatch({
+    control,
+    name: ['summary', 'status', 'prizeFirst', 'prizeSecond', 'prizeThird'],
+  })
 
   const { actions, dialogs, reviewing } = useCompetitionActions({
     onDeleted: () => {
@@ -143,6 +149,7 @@ function CompetitionForm({ item }: { item: AdminCompetition | null }) {
         location: textOrNull(v.location),
         prize: textOrNull(v.prize),
         registerUrl: textOrNull(v.registerUrl),
+        ...extrasToInput(v),
         // PATCH chỉ nhận draft/published/hidden: đề xuất chờ duyệt / đã từ chối thì không gửi trạng thái
         ...(isEditableStatus(v.status) ? { status: v.status } : {}),
         isFeatured: v.isFeatured,
@@ -306,7 +313,25 @@ function CompetitionForm({ item }: { item: AdminCompetition | null }) {
                 <Input id="m-organizer" placeholder="Vd: CLB Marketing NEU" invalid={Boolean(errors.organizer)} {...register('organizer')} />
               </Field>
               <Field label="Lĩnh vực" htmlFor="m-field" error={errors.field?.message}>
-                <Input id="m-field" placeholder="Vd: Marketing" invalid={Boolean(errors.field)} {...register('field')} />
+                <Controller
+                  control={control}
+                  name="field"
+                  render={({ field }) => (
+                    <Select
+                      id="m-field"
+                      value={field.value}
+                      onChange={field.onChange}
+                      placeholder="Chọn lĩnh vực"
+                      invalid={Boolean(errors.field)}
+                      options={[
+                        { value: '', label: 'Chưa chọn' },
+                        // Dữ liệu cũ có thể là chữ tự do ngoài danh sách chuẩn
+                        ...(field.value && !COMPETITION_FIELD_OPTIONS.includes(field.value) ? [{ value: field.value, label: field.value }] : []),
+                        ...COMPETITION_FIELD_OPTIONS.map((f) => ({ value: f, label: f })),
+                      ]}
+                    />
+                  )}
+                />
               </Field>
             </FormRow>
             <Field label="Mô tả ngắn" htmlFor="m-summary" required error={errors.summary?.message}>
@@ -405,7 +430,24 @@ function CompetitionForm({ item }: { item: AdminCompetition | null }) {
                   )}
                 />
               </Field>
-              <div />
+              <Field label="Bắt đầu diễn ra" htmlFor="m-event-start" error={errors.eventStartDate?.message} hint="Không bắt buộc. Cùng Ngày thi tạo thành khoảng Ngày diễn ra.">
+                <Controller
+                  control={control}
+                  name="eventStartDate"
+                  render={({ field }) => (
+                    <DateTimePicker
+                      id="m-event-start"
+                      value={field.value}
+                      onBlur={field.onBlur}
+                      onChange={field.onChange}
+                      invalid={Boolean(errors.eventStartDate)}
+                      clearable
+                      defaultTime="08:00"
+                      placeholder="Chưa có"
+                    />
+                  )}
+                />
+              </Field>
             </FormRow>
           </Card>
 
@@ -458,6 +500,13 @@ function CompetitionForm({ item }: { item: AdminCompetition | null }) {
               />
             </Field>
           </Card>
+
+          <CompetitionExtrasCards
+            control={control}
+            register={register}
+            errors={errors}
+            prizeTotal={prizeTotalOf({ prizeFirst, prizeSecond, prizeThird })}
+          />
 
           <Card icon={BookOpenText} title="Nội dung chi tiết" subtitle="Thể lệ, vòng thi, quyền lợi. Có thể chèn ảnh, bảng, liên kết.">
             <Controller

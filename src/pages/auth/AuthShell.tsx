@@ -3,7 +3,7 @@ import { BriefcaseBusiness, Trophy, UsersRound } from 'lucide-react'
 import { BrandLogo, Icon } from '@/components/ui'
 
 const HIGHLIGHTS = [
-  { icon: BriefcaseBusiness, title: 'Luyện giải case', text: 'Thư viện case kinh doanh có lời giải và chấm điểm' },
+  { icon: BriefcaseBusiness, title: 'Luyện giải case', text: 'Rèn luyện case kinh doanh có lời giải và chấm điểm' },
   { icon: Trophy, title: 'Cuộc thi', text: 'Tổ chức vòng thi, chấm bài và công bố kết quả' },
   { icon: UsersRound, title: 'Ghép đội', text: 'Kết nối người học tìm đồng đội phù hợp' },
 ]

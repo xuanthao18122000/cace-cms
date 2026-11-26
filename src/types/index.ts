@@ -19,6 +19,10 @@ export interface User {
   role: RoleRef
   isStaff: boolean
   lastLoginAt: string | null
+  /** Hạn gói Premium (admin cấp tay); null = freemium */
+  premiumUntil?: string | null
+  /** premiumUntil > now */
+  isPremium?: boolean
   createdAt: string
   updatedAt: string
 }
@@ -113,10 +117,12 @@ export interface RoleInput {
   description?: string | null
 }
 
-/* ---------- Thư viện case (giai đoạn 2) ---------- */
+/* ---------- Rèn luyện (giai đoạn 2) ---------- */
 
 export type TaxonomyType = 'field' | 'industry' | 'level'
 export type Difficulty = 'easy' | 'medium' | 'hard'
+/** Hình thức giải case */
+export type CaseMode = 'individual' | 'team' | 'both'
 export type CaseStatus = 'draft' | 'published' | 'hidden'
 
 export interface Taxonomy {
@@ -145,10 +151,14 @@ export interface AdminCase {
   coverUrl: string | null
   difficulty: Difficulty
   estimatedMinutes: number | null
+  /** Hình thức giải: cá nhân / nhóm / cả hai */
+  mode?: CaseMode
   field: TaxonomyRef | null
   industry: TaxonomyRef | null
   level: TaxonomyRef | null
   isFeatured: boolean
+  /** Miễn phí cho người chưa có Premium (freemium) */
+  isFree?: boolean
   hasPdf: boolean
   viewCount: number
   publishedAt: string | null
@@ -209,11 +219,13 @@ export interface CaseInput {
   pdfSize?: number | null
   difficulty: Difficulty
   estimatedMinutes?: number | null
+  mode?: CaseMode
   fieldId?: string | null
   industryId?: string | null
   levelId?: string | null
   status?: CaseStatus
   isFeatured?: boolean
+  isFree?: boolean
   maxAttempts?: number | null
   editWindowMinutes?: number
   solutionContent?: string
@@ -368,6 +380,42 @@ export interface AdminCompetition {
   createdByName: string | null
   createdAt: string
   updatedAt: string
+  /** Ngày bắt đầu diễn ra (eventDate = ngày kết thúc) */
+  eventStartDate: string | null
+  audience: CompetitionAudience | null
+  format: CompetitionFormat | null
+  participation: CompetitionParticipation | null
+  scale: CompetitionScale | null
+  rounds: CompetitionRound[] | null
+  prizes: CompetitionPrizes | null
+  contact: CompetitionContact | null
+  fanpageUrl: string | null
+}
+
+export type CompetitionAudience = 'university' | 'highschool' | 'all'
+export type CompetitionFormat = 'online' | 'offline' | 'hybrid'
+export type CompetitionParticipation = 'individual' | 'team' | 'both'
+export type CompetitionScale = 'school' | 'south' | 'north' | 'central' | 'national'
+export interface CompetitionRound {
+  name: string
+  format: string
+  startDate: string
+  endDate: string
+  description?: string | null
+}
+/** VND */
+export interface CompetitionPrizes {
+  first: number
+  second: number
+  third: number
+  note?: string | null
+}
+export interface CompetitionContact {
+  name: string
+  role: string
+  phone: string
+  email: string
+  address: string
 }
 
 export interface CompetitionListQuery {
@@ -399,12 +447,21 @@ export interface CompetitionInput {
   eventDate?: string | null
   status?: EditableCompetitionStatus
   isFeatured?: boolean
+  eventStartDate?: string | null
+  audience?: CompetitionAudience | null
+  format?: CompetitionFormat | null
+  participation?: CompetitionParticipation | null
+  scale?: CompetitionScale | null
+  rounds?: CompetitionRound[] | null
+  prizes?: CompetitionPrizes | null
+  contact?: CompetitionContact | null
+  fanpageUrl?: string | null
 }
 
 /* ---------- Tìm Đồng Gà (tin tìm đồng đội) ---------- */
 
 /** hidden: admin ẩn khỏi web, chủ tin vẫn thấy trong mục của họ */
-export type TeamPostStatus = 'open' | 'closed' | 'hidden'
+export type TeamPostStatus = 'open' | 'closed' | 'paused' | 'hidden'
 export type TeamPostRole = 'research' | 'finance' | 'strategy' | 'slide' | 'marketing'
 export type TeamPostSlot = 'weekday-evening' | 'weekend' | 'flexible'
 
@@ -431,4 +488,193 @@ export interface TeamPostListQuery {
   /** Tìm theo tiêu đề, tên hoặc email chủ tin */
   q?: string
   status?: TeamPostStatus | ''
+}
+
+/* ---------- Cấu hình duyệt ---------- */
+
+/** Loại tính năng cần duyệt (khớp enum `approval_type` của API). */
+export type ApprovalType = 'competition_proposal' | 'learner_profile'
+
+export interface Approver {
+  id: string
+  fullName: string
+  email: string
+  avatarUrl: string | null
+  avatarColor: string | null
+  roleName: string
+}
+
+export interface ApprovalStep {
+  level: number
+  name: string
+  approvers: Approver[]
+}
+
+export interface ApprovalFlow {
+  type: ApprovalType
+  name: string
+  description: string
+  /** false = chưa cấu hình hoặc đang tắt → duyệt mặc định một bước */
+  isActive: boolean
+  configured: boolean
+  steps: ApprovalStep[]
+  updatedAt: string | null
+}
+
+export interface ApprovalFlowInput {
+  isActive: boolean
+  steps: { name: string; approverIds: string[] }[]
+}
+
+export type ApprovalRequestStatus = 'pending' | 'approved' | 'rejected' | 'cancelled'
+
+export interface ApprovalRequest {
+  id: string
+  type: ApprovalType
+  targetId: string
+  title: string
+  status: ApprovalRequestStatus
+  currentLevel: number
+  totalLevels: number
+  steps: ApprovalStep[]
+  actions: { level: number; decision: 'approve' | 'reject'; note: string | null; actorName: string; createdAt: string }[]
+  /** Người đang xem thuộc cấp duyệt hiện tại */
+  canAct: boolean
+  createdAt: string
+}
+
+// ── Kỹ năng & lộ trình ──
+
+export interface Skill {
+  id: string
+  code: string
+  name: string
+  description: string | null
+  icon: string
+  color: string
+  sortOrder: number
+  isActive: boolean
+}
+
+export interface SkillInput {
+  code?: string
+  name?: string
+  description?: string | null
+  icon?: string
+  color?: string
+  sortOrder?: number
+  isActive?: boolean
+}
+
+/** Một dòng tổng quan kỹ năng người học (CMS). */
+export interface SkillOverviewRow {
+  user: { id: string; fullName: string; email: string; avatarUrl: string | null; avatarColor: string | null; school: string | null; status: string }
+  /** Điểm 0-100 theo mã kỹ năng */
+  values: Record<string, number>
+  average: number
+  gradedCases: number
+  strongest: string | null
+  weakest: string | null
+  lastChangedAt: string | null
+}
+
+export interface SkillOverviewQuery {
+  page: number
+  pageSize: number
+  search?: string
+  sort?: string
+}
+
+/** Bản đồ kỹ năng của một người. */
+export interface UserSkills {
+  skills: { code: string; name: string; icon: string; color: string; value: number; casesCount: number; change30d: number }[]
+  gradedCases: number
+  strongest: string | null
+  weakest: string | null
+  summary: string
+  recent: { skillName: string; skillColor: string; caseTitle: string; submissionId: string; delta: number; after: number; createdAt: string }[]
+}
+
+/** Luật cộng XP (bảng xếp hạng Đồng Gà Tinh Anh, level, hạng Gà). */
+export interface XpRules {
+  difficulty: { easy: number; medium: number; hard: number }
+  bonusMinScore: number
+  bonusRatio: number
+  streakXp: number
+}
+
+export interface SkillGrowth {
+  initialValue: number
+  learningRate: number
+  difficulty: { easy: number; medium: number; hard: number }
+  maxGain: number
+  maxLoss: number
+  lossFactor: number
+  repeatFactor: number
+  groupFactor: number
+}
+
+export interface GrowthPreviewRow {
+  current: number
+  score: number
+  difficulty: 'easy' | 'medium' | 'hard'
+  delta: number
+}
+
+export type RoadmapGoal = 'competition' | 'mt' | 'practice'
+export type RoadmapAction = 'cases' | 'co_solving' | 'competitions' | 'profile'
+
+export interface RoadmapStep {
+  title: string
+  description: string
+  weeks: string
+  tags: string[]
+  targetCases: number
+  action: RoadmapAction
+}
+
+export interface Roadmap {
+  goal: RoadmapGoal
+  goalLabel: string
+  steps: RoadmapStep[]
+}
+
+export interface CaseSkillWeight {
+  skillId: string
+  weight: number
+}
+
+// ── Hồ sơ rèn luyện ──
+
+export type LearnerReviewStatus = 'none' | 'pending' | 'approved' | 'rejected'
+export type LearnerType = 'university' | 'high_school' | 'working'
+
+export interface AdminLearnerProfile {
+  user: { id: string; fullName: string; avatarUrl: string | null; avatarColor: string | null; school: string | null }
+  email: string
+  isLooking: boolean
+  roles: string[]
+  goals: RoadmapGoal[]
+  slots: string[]
+  bio: string | null
+  level: number
+  tier: string
+  casesSolved: number
+  mentorScore: number | null
+  learnerType: LearnerType | null
+  major: string | null
+  interests: string[]
+  focusSkills: string[]
+  reviewStatus: LearnerReviewStatus
+  reviewNote: string | null
+  submittedAt: string | null
+  reviewedAt: string | null
+}
+
+export interface LearnerProfileListQuery {
+  page?: number
+  pageSize?: number
+  q?: string
+  status?: LearnerReviewStatus | ''
+  user?: string
 }

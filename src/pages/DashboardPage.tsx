@@ -106,7 +106,7 @@ function AdminDashboard() {
             <ActionRow icon={UserPlus} title="Thêm người dùng" subtitle="Tạo tài khoản mentor, quản trị viên" onClick={() => navigate('/users?new=1')} />
             <ActionRow icon={Users} tone="blue" title="Quản lý người dùng" subtitle="Tìm, khoá, đặt lại mật khẩu" onClick={() => navigate('/users')} />
             <ActionRow icon={ShieldCheck} tone="purple" title="Vai trò" subtitle="Nhóm người dùng theo vai" onClick={() => navigate('/roles')} />
-            <ActionRow icon={LibraryBig} tone="green" title="Thư viện case" subtitle="Soạn, xuất bản đề luyện tập" onClick={() => navigate('/cases')} />
+            <ActionRow icon={LibraryBig} tone="green" title="Rèn luyện" subtitle="Soạn, xuất bản đề luyện tập" onClick={() => navigate('/cases')} />
             <ActionRow icon={UserRound} tone="gray" title="Hồ sơ của tôi" subtitle="Thông tin cá nhân, mật khẩu" onClick={() => navigate('/profile')} />
           </div>
         </Card>
@@ -133,11 +133,11 @@ function StaffWelcome() {
             {content ? (
               <>
                 <p>
-                  Bạn có thể soạn và xuất bản case luyện tập trong <b>Thư viện case</b>. Công cụ chấm bài và cuộc thi sẽ lần lượt xuất hiện ở đây.
+                  Bạn có thể soạn và xuất bản case luyện tập trong <b>Rèn luyện</b>. Công cụ chấm bài và cuộc thi sẽ lần lượt xuất hiện ở đây.
                 </p>
                 <div className="page-actions welcome-actions">
                   <Button variant="primary" icon={LibraryBig} onClick={() => navigate('/cases')}>
-                    Mở thư viện case
+                    Mở Rèn luyện
                   </Button>
                 </div>
               </>
@@ -154,7 +154,7 @@ function StaffWelcome() {
         <div className="action-list">
           {content && (
             <>
-              <ActionRow icon={LibraryBig} tone="green" title="Thư viện case" subtitle="Soạn, xuất bản đề luyện tập" onClick={() => navigate('/cases')} />
+              <ActionRow icon={LibraryBig} tone="green" title="Rèn luyện" subtitle="Soạn, xuất bản đề luyện tập" onClick={() => navigate('/cases')} />
               <ActionRow icon={FolderTree} tone="blue" title="Danh mục case" subtitle="Lĩnh vực, ngành, level" onClick={() => navigate('/case-taxonomies')} />
             </>
           )}

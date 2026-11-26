@@ -40,8 +40,8 @@ const CODE_MESSAGES: Record<string, string> = {
   CACE_CASE_EMPTY: 'Cần nội dung đề hoặc file PDF trước khi xuất bản',
   CACE_CRITERIA_INVALID: 'Tiêu chí chấm không hợp lệ: 1–10 tiêu chí, tổng trọng số bằng 100',
   CACE_CRITERIA_LOCKED: 'Case đã có bài nộp, không đổi được tiêu chí chấm',
-  CACE_CASE_HAS_SUBMISSIONS: 'Case đã có bài làm — hãy ẩn case thay vì xoá',
-  CACE_SUBMISSION_LOCKED: 'Người học vẫn còn được rút bài — chưa chấm được',
+  CACE_CASE_HAS_SUBMISSIONS: 'Case đã có bài làm - hãy ẩn case thay vì xoá',
+  CACE_SUBMISSION_LOCKED: 'Người học vẫn còn được rút bài - chưa chấm được',
 }
 
 /** Mã lỗi luôn dùng câu chuẩn của CMS thay cho message máy chủ */

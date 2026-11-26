@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { useNavigate, useParams } from 'react-router-dom'
-import { Activity, ArrowLeft, IdCard, KeyRound, Lock, LockOpen, Pencil, Trash2, UserX } from 'lucide-react'
+import { Activity, ArrowLeft, Radar, IdCard, KeyRound, Lock, LockOpen, Pencil, Trash2, UserX } from 'lucide-react'
 import { ApiError, userApi } from '@/api'
 import {
   Avatar,
@@ -16,7 +16,9 @@ import {
 import { useAuth } from '@/contexts/auth'
 import { queryKeys } from '@/lib/queryClient'
 import { formatDateTime, formatRelative } from '@/utils/format'
-import { RoleBadge, StatusBadge, VerifiedBadge } from './userBits'
+import { UserSkillsPanel } from '../skills/UserSkillsPanel'
+import { PremiumCard } from './PremiumCard'
+import { PremiumBadge, RoleBadge, StatusBadge, VerifiedBadge } from './userBits'
 import { useUserActions } from './useUserActions'
 
 const SELF_HINT = 'Không thể thao tác trên tài khoản của chính bạn'
@@ -108,6 +110,7 @@ export function UserDetailPage() {
             <div className="row center">
               <RoleBadge role={u.role} />
               <StatusBadge status={u.status} />
+              <PremiumBadge user={u} />
             </div>
           </div>
           <div className="detail-actions">
@@ -141,6 +144,12 @@ export function UserDetailPage() {
               ]}
             />
           </Card>
+          {!u.isStaff && <PremiumCard user={u} />}
+          {!u.isStaff && (
+            <Card icon={Radar} title="Kỹ năng giải case" subtitle="Cập nhật sau mỗi bài được chấm">
+              <UserSkillsPanel userId={u.id} showRecent={false} />
+            </Card>
+          )}
           <Card icon={Activity} title="Hoạt động">
             <KeyValueGrid
               columns={2}

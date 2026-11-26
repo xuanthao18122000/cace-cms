@@ -22,10 +22,10 @@ import {
 import { useDebounce } from '@/hooks/useDebounce'
 import { useTaxonomiesQuery } from '@/hooks/queries'
 import { queryKeys } from '@/lib/queryClient'
-import type { AdminCaseItem, CaseListQuery, CaseStatus, Difficulty, Taxonomy } from '@/types'
+import type { AdminCaseItem, CaseListQuery, CaseMode, CaseStatus, Difficulty, Taxonomy } from '@/types'
 import { formatDate, formatDateTime, formatNumber } from '@/utils/format'
 import { CaseCell, CaseStatusBadge, DifficultyBadge, FeaturedStar } from './caseBits'
-import { DIFFICULTY_OPTIONS, STATUS_OPTIONS } from './caseLabels'
+import { CASE_MODE_LABEL, DIFFICULTY_OPTIONS, STATUS_OPTIONS } from './caseLabels'
 import { CaseRowMenu } from './CaseRowMenu'
 import { useCaseActions } from './useCaseActions'
 
@@ -67,7 +67,7 @@ export function CasesPage() {
 
   const columns: Column<AdminCaseItem>[] = [
     { key: 'case', header: 'Case', main: true, skeleton: 'entity', render: (c) => <CaseCell item={c} /> },
-    { key: 'company', header: 'Công ty', hideOnMobile: true, render: (c) => c.company || <span className="mo">—</span> },
+    { key: 'company', header: 'Công ty', hideOnMobile: true, render: (c) => c.company || <span className="mo">-</span> },
     {
       key: 'taxonomy',
       header: 'Phân loại',
@@ -86,12 +86,31 @@ export function CasesPage() {
                 {c.level.name}
               </Badge>
             )}
+            <ModeBadge mode={c.mode} />
           </span>
         ) : (
-          <span className="mo">—</span>
+          <ModeBadge mode={c.mode} />
         ),
     },
-    { key: 'difficulty', header: 'Độ khó', skeleton: 'badge', render: (c) => <DifficultyBadge difficulty={c.difficulty} /> },
+    {
+      key: 'difficulty',
+      header: 'Độ khó',
+      skeleton: 'badge',
+      render: (c) => (
+        <span className="row">
+          <DifficultyBadge difficulty={c.difficulty} />
+          {c.isFree ? (
+            <Badge tone="green" noDot>
+              Miễn phí
+            </Badge>
+          ) : (
+            <Badge tone="yellow" noDot>
+              Premium
+            </Badge>
+          )}
+        </span>
+      ),
+    },
     { key: 'status', header: 'Trạng thái', skeleton: 'badge', render: (c) => <CaseStatusBadge status={c.status} /> },
     { key: 'featured', header: <span className="sr-only">Nổi bật</span>, skeleton: 'none', render: (c) => <FeaturedStar featured={c.isFeatured} /> },
     { key: 'views', header: 'Lượt xem', hideOnMobile: true, className: 'is-num', render: (c) => <span className="num">{formatNumber(c.viewCount)}</span> },
@@ -131,7 +150,7 @@ export function CasesPage() {
 
   return (
     <>
-      <PageHeader crumbs={[{ label: 'Nội dung' }]} title="Thư viện case" subtitle="Ngân hàng đề luyện tập hiển thị ở mục Rèn luyện trên web" actions={addButton} />
+      <PageHeader crumbs={[{ label: 'Nội dung' }]} title="Rèn luyện" subtitle="Ngân hàng đề luyện tập hiển thị ở mục Rèn luyện trên web" actions={addButton} />
 
       <Card>
         <FilterBar>
@@ -162,7 +181,7 @@ export function CasesPage() {
               actions={<Button onClick={resetFilters}>Xoá bộ lọc</Button>}
             />
           ) : (
-            <EmptyHero icon={LibraryBig} title="Chưa có case" message="Soạn đề đầu tiên cho thư viện luyện tập." actions={addButton} />
+            <EmptyHero icon={LibraryBig} title="Chưa có case" message="Soạn đề đầu tiên cho mục Rèn luyện." actions={addButton} />
           )
         ) : (
           <>
@@ -181,5 +200,16 @@ export function CasesPage() {
 
       {dialogs}
     </>
+  )
+}
+
+const MODE_TONE = { individual: 'gray', team: 'orange', both: 'brand' } as const
+
+/** Hình thức giải: cá nhân / nhóm / cả hai */
+function ModeBadge({ mode = 'individual' }: { mode?: CaseMode }) {
+  return (
+    <Badge tone={MODE_TONE[mode]} noDot title="Hình thức giải">
+      {CASE_MODE_LABEL[mode]}
+    </Badge>
   )
 }

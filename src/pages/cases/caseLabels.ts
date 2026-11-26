@@ -1,7 +1,8 @@
 import { config } from '@/config'
-import type { CaseStatus, Difficulty, TaxonomyType } from '@/types'
+import type { CaseMode, CaseStatus, Difficulty, TaxonomyType } from '@/types'
 
 export const DIFFICULTY_LABEL: Record<Difficulty, string> = { easy: 'Dễ', medium: 'Trung bình', hard: 'Khó' }
+export const CASE_MODE_LABEL: Record<CaseMode, string> = { individual: 'Cá nhân', team: 'Nhóm', both: 'Cả hai' }
 export const STATUS_LABEL: Record<CaseStatus, string> = { draft: 'Nháp', published: 'Đã xuất bản', hidden: 'Đã ẩn' }
 export const TAXONOMY_LABEL: Record<TaxonomyType, string> = { field: 'Lĩnh vực', industry: 'Ngành', level: 'Level' }
 export const TAXONOMY_TYPES: TaxonomyType[] = ['field', 'industry', 'level']

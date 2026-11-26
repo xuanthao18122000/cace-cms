@@ -69,7 +69,7 @@ const columns: Column<AdminSubmission>[] = [
           {s.attachmentCount}
         </span>
       ) : (
-        <span className="mo">—</span>
+        <span className="mo">-</span>
       ),
   },
   {
@@ -87,7 +87,7 @@ const columns: Column<AdminSubmission>[] = [
           {s.selfScore !== null && `${formatScore(s.selfScore)}/10`}
         </span>
       ) : (
-        <span className="mo">—</span>
+        <span className="mo">-</span>
       ),
   },
   {
@@ -96,19 +96,19 @@ const columns: Column<AdminSubmission>[] = [
     className: 'is-num nowrap',
     render: (s) =>
       s.score !== null ? (
-        <span className="num" title={s.status === 'grading' ? 'Điểm nháp — người học chưa thấy' : 'Điểm theo trọng số, thang 10'}>
+        <span className="num" title={s.status === 'grading' ? 'Điểm nháp - người học chưa thấy' : 'Điểm theo trọng số, thang 10'}>
           <b className="ink">{formatGrade(s.score)}</b>
           {s.status === 'grading' && <span className="mo"> · nháp</span>}
         </span>
       ) : (
-        <span className="mo">—</span>
+        <span className="mo">-</span>
       ),
   },
   {
     key: 'submitted',
     header: 'Nộp lúc',
     className: 'nowrap',
-    render: (s) => (s.submittedAt ? formatDateTime(s.submittedAt) : <span className="mo">—</span>),
+    render: (s) => (s.submittedAt ? formatDateTime(s.submittedAt) : <span className="mo">-</span>),
   },
 ]
 

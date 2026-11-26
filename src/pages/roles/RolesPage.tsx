@@ -82,7 +82,7 @@ export function RolesPage() {
       header: 'Mô tả',
       hideOnMobile: true,
       className: 'col-desc',
-      render: (r) => r.description || <span className="mo">—</span>,
+      render: (r) => r.description || <span className="mo">-</span>,
     },
     {
       key: 'system',

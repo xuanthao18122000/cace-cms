@@ -3,14 +3,14 @@ import { Badge, LinkButton, type Tone } from '@/components/ui'
 import type { AdminTeamPost, TeamPostStatus } from '@/types'
 import { roleLabel, STATUS_LABEL } from './teamPostLabels'
 
-const STATUS_TONES: Record<TeamPostStatus, Tone> = { open: 'green', closed: 'gray', hidden: 'red' }
+const STATUS_TONES: Record<TeamPostStatus, Tone> = { open: 'green', closed: 'gray', paused: 'yellow', hidden: 'red' }
 
 export function TeamPostStatusBadge({ status }: { status: TeamPostStatus }) {
   return <Badge tone={STATUS_TONES[status]}>{STATUS_LABEL[status]}</Badge>
 }
 
 export function RoleChips({ roles }: { roles: string[] }) {
-  if (roles.length === 0) return <span className="mo">—</span>
+  if (roles.length === 0) return <span className="mo">-</span>
   return (
     <span className="badge-stack">
       {roles.map((r) => (

@@ -13,6 +13,8 @@ export default defineConfig({
   },
   server: {
     port: 5180,
+    // Cho phép mở bản dev qua Cloudflare Tunnel.
+    allowedHosts: ['.trycloudflare.com'],
     // Cùng origin với API để cookie refresh (path /api/auth) đi kèm.
     // Thứ tự quan trọng: upload khai báo trước /api.
     proxy: {

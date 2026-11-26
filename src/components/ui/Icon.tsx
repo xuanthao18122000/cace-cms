@@ -29,7 +29,7 @@ function TrophyGlyph({ star }: { star: string }) {
   )
 }
 
-/** Icon vuông: cúp trắng trên nền xanh (giống favicon của web) — dùng khi sidebar thu gọn. */
+/** Icon vuông: cúp trắng trên nền xanh (giống favicon của web) - dùng khi sidebar thu gọn. */
 export function LogoMark({ className = 'logo-mark' }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 72 72" aria-hidden="true">

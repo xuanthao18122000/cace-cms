@@ -31,7 +31,7 @@ export function RequireAdmin() {
   return <Outlet />
 }
 
-/** Trang nội dung (thư viện case): vai admin hoặc mentor */
+/** Trang nội dung (rèn luyện): vai admin hoặc mentor */
 export function RequireContentAccess() {
   const { user } = useAuth()
   if (!canManageContent(user)) return <Navigate to="/" replace />

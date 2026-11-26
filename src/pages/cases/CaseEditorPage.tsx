@@ -48,11 +48,18 @@ import {
   toCriteriaInput,
   type CaseFormValues,
 } from './caseForm'
-import { DIFFICULTY_OPTIONS, STATUS_LABEL } from './caseLabels'
+import { CASE_MODE_LABEL, DIFFICULTY_OPTIONS, STATUS_LABEL } from './caseLabels'
 import { CoverUpload } from './CoverUpload'
+import { CaseSkillsCard } from './CaseSkillsCard'
 import { CriteriaEditor } from './CriteriaEditor'
 import { PdfUpload } from './PdfUpload'
 import { useCaseActions } from './useCaseActions'
+
+const MODE_SELECT: SelectOption[] = [
+  { value: 'individual', label: CASE_MODE_LABEL.individual, description: 'Mỗi người tự giải' },
+  { value: 'team', label: CASE_MODE_LABEL.team, description: 'Giải theo nhóm Đồng Gà' },
+  { value: 'both', label: CASE_MODE_LABEL.both, description: 'Giải cá nhân hoặc theo nhóm đều được' },
+]
 
 const EMPTY_MESSAGE = 'Cần nội dung đề hoặc file PDF trước khi xuất bản'
 const CRITERIA_CODES = new Set(['CACE_CRITERIA_INVALID', 'CACE_CRITERIA_LOCKED'])
@@ -84,7 +91,7 @@ export function CaseEditorPage() {
             message="Case có thể đã bị xoá."
             actions={
               <Button icon={ArrowLeft} onClick={() => navigate('/cases')}>
-                Về thư viện case
+                Về trang Rèn luyện
               </Button>
             }
           />
@@ -157,12 +164,14 @@ function CaseForm({ item }: { item: AdminCase | null }) {
         pdfName: v.pdf?.name ?? null,
         pdfSize: v.pdf?.size ?? null,
         difficulty: v.difficulty,
+        mode: v.mode,
         estimatedMinutes: v.estimatedMinutes ? Number(v.estimatedMinutes) : null,
         fieldId: v.fieldId || null,
         industryId: v.industryId || null,
         levelId: v.levelId || null,
         status: v.status,
         isFeatured: v.isFeatured,
+        isFree: v.isFree,
         maxAttempts: v.unlimitedAttempts ? null : Number(v.maxAttempts),
         editWindowMinutes: Number(v.editWindowMinutes),
         solutionContent: v.solutionContent,
@@ -281,7 +290,7 @@ function CaseForm({ item }: { item: AdminCase | null }) {
   return (
     <>
       <PageHeader
-        crumbs={[{ label: 'Nội dung' }, { label: 'Thư viện case', to: '/cases' }]}
+        crumbs={[{ label: 'Nội dung' }, { label: 'Rèn luyện', to: '/cases' }]}
         title={
           isNew ? (
             'Thêm case'
@@ -451,6 +460,18 @@ function CaseForm({ item }: { item: AdminCase | null }) {
                 <Switch checked={field.value} onChange={field.onChange} label="Nổi bật" description="Ưu tiên hiển thị ở đầu mục Rèn luyện" />
               )}
             />
+            <Controller
+              control={control}
+              name="isFree"
+              render={({ field }) => (
+                <Switch
+                  checked={field.value}
+                  onChange={field.onChange}
+                  label="Miễn phí (freemium)"
+                  description="Người chưa có Premium vẫn xem và giải được. Nên giữ 3 case miễn phí cho mỗi mức độ."
+                />
+              )}
+            />
             {item && (
               <dl className="meta-list">
                 {item.publishedAt && (
@@ -521,6 +542,13 @@ function CaseForm({ item }: { item: AdminCase | null }) {
                 render={({ field }) => <Segmented options={DIFFICULTY_OPTIONS} value={field.value} onChange={field.onChange} />}
               />
             </Field>
+            <Field label="Hình thức giải" htmlFor="c-mode" error={errors.mode?.message} hint="Dùng cho bộ lọc Hình thức ở trang Rèn luyện">
+              <Controller
+                control={control}
+                name="mode"
+                render={({ field }) => <Select id="c-mode" value={field.value} onChange={field.onChange} options={MODE_SELECT} />}
+              />
+            </Field>
             <FormRow>
               <Field label="Thời gian làm" htmlFor="c-minutes" error={errors.estimatedMinutes?.message}>
                 <Input
@@ -541,6 +569,8 @@ function CaseForm({ item }: { item: AdminCase | null }) {
               </Field>
             </FormRow>
           </Card>
+
+          <CaseSkillsCard caseId={item?.id ?? null} />
 
           <Card icon={Timer} title="Làm bài">
             <Field label="Số lần làm tối đa" htmlFor="c-attempts" error={errors.maxAttempts?.message}>

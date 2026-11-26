@@ -25,7 +25,7 @@ import { useRolesQuery } from '@/hooks/queries'
 import { queryKeys } from '@/lib/queryClient'
 import type { User, UserListQuery, UserStatus } from '@/types'
 import { formatDate, formatDateTime, formatNumber, formatRelative } from '@/utils/format'
-import { RoleBadge, StatusBadge, VerifiedBadge } from './userBits'
+import { PremiumBadge, RoleBadge, StatusBadge, VerifiedBadge } from './userBits'
 import { STATUS_OPTIONS } from './userLabels'
 import { UserRowMenu } from './UserRowMenu'
 import { useUserActions } from './useUserActions'
@@ -88,6 +88,12 @@ export function UsersPage() {
                 {u.fullName}
               </Link>
               {u.id === me?.id && <span className="mo"> (bạn)</span>}
+              {u.isPremium && (
+                <>
+                  {' '}
+                  <PremiumBadge user={u} />
+                </>
+              )}
             </>
           }
           subtitle={u.email}

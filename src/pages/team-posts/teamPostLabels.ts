@@ -1,7 +1,7 @@
 import { config } from '@/config'
 import type { TeamPostRole, TeamPostSlot, TeamPostStatus } from '@/types'
 
-export const STATUS_LABEL: Record<TeamPostStatus, string> = { open: 'Đang tìm', closed: 'Đã đóng', hidden: 'Đã ẩn' }
+export const STATUS_LABEL: Record<TeamPostStatus, string> = { open: 'Đang tìm', closed: 'Đã đóng', paused: 'Tạm dừng', hidden: 'Đã ẩn' }
 
 export const ROLE_LABEL: Record<TeamPostRole, string> = {
   research: 'Research & Data',
@@ -17,4 +17,4 @@ export const SLOT_LABEL: Record<TeamPostSlot, string> = { 'weekday-evening': 'T�
 export const roleLabel = (code: string) => ROLE_LABEL[code as TeamPostRole] ?? code
 export const slotLabel = (code: string) => SLOT_LABEL[code as TeamPostSlot] ?? code
 
-export const teamPostWebUrl = (id: string) => `${config.webUrl}/tim-dong-ga/${id}`
+export const teamPostWebUrl = (id: string) => `${config.webUrl}/ghep-doi/${id}`

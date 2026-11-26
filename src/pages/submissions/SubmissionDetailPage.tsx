@@ -52,10 +52,10 @@ const assessmentColumns: Column<AssessmentRow>[] = [
           <b className="ink">{formatScore(r.self.score)}</b> / {r.maxScore}
         </span>
       ) : (
-        <span className="mo">—</span>
+        <span className="mo">-</span>
       ),
   },
-  { key: 'note', header: 'Ghi chú', render: (r) => (r.self?.note ? <div className="cell-note">{r.self.note}</div> : <span className="mo">—</span>) },
+  { key: 'note', header: 'Ghi chú', render: (r) => (r.self?.note ? <div className="cell-note">{r.self.note}</div> : <span className="mo">-</span>) },
 ]
 
 /** Liên kết tải file: url tương đối /uploads/... đi qua proxy cùng origin */
@@ -178,7 +178,7 @@ function SubmissionView({ s, back, crumbs }: { s: AdminSubmissionDetail; back: R
             {s.content ? (
               <div className="rte-content rte-readonly" dangerouslySetInnerHTML={{ __html: s.content }} />
             ) : (
-              <EmptyState>Không có phần viết trên web{s.attachments.length > 0 ? ' — xem file đính kèm' : ''}.</EmptyState>
+              <EmptyState>Không có phần viết trên web{s.attachments.length > 0 ? ' - xem file đính kèm' : ''}.</EmptyState>
             )}
           </Card>
 

@@ -20,7 +20,7 @@ export interface CoachWaitlistQuery {
   q?: string
 }
 
-/** Kích thước trang tối đa API cho phép — dùng khi xuất CSV */
+/** Kích thước trang tối đa API cho phép - dùng khi xuất CSV */
 export const WAITLIST_MAX_PAGE_SIZE = 100
 
 export const waitlistApi = {

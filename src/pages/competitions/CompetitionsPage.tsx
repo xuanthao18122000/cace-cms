@@ -92,7 +92,7 @@ export function CompetitionsPage() {
             {c.field}
           </Badge>
         ) : (
-          <span className="mo">—</span>
+          <span className="mo">-</span>
         ),
     },
     {
@@ -111,7 +111,7 @@ export function CompetitionsPage() {
       header: 'Ngày thi',
       hideOnMobile: true,
       className: 'nowrap',
-      render: (c) => (c.eventDate ? <span className="num">{formatDeadline(c.eventDate)}</span> : <span className="mo">—</span>),
+      render: (c) => (c.eventDate ? <span className="num">{formatDeadline(c.eventDate)}</span> : <span className="mo">-</span>),
     },
     { key: 'status', header: 'Trạng thái', skeleton: 'badge', render: (c) => <CompetitionStatusBadge status={c.status} /> },
     { key: 'featured', header: <span className="sr-only">Nổi bật</span>, skeleton: 'none', render: (c) => <FeaturedStar featured={c.isFeatured} /> },

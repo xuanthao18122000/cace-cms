@@ -1,6 +1,14 @@
 import { format, isValid, parseISO } from 'date-fns'
 import { vi } from 'date-fns/locale'
-import type { CompetitionPhase, CompetitionStatus, EditableCompetitionStatus } from '@/types'
+import type {
+  CompetitionAudience,
+  CompetitionFormat,
+  CompetitionParticipation,
+  CompetitionPhase,
+  CompetitionScale,
+  CompetitionStatus,
+  EditableCompetitionStatus,
+} from '@/types'
 
 export const STATUS_LABEL: Record<CompetitionStatus, string> = {
   draft: 'Nháp',
@@ -28,7 +36,7 @@ export const REJECT_REASON_MAX = 1000
 export const PHASE_OPTIONS = (Object.keys(PHASE_LABEL) as CompetitionPhase[]).map((p) => ({ value: p, label: PHASE_LABEL[p] }))
 
 /** "25/01/2027 23:59" theo giờ máy */
-export function formatDeadline(value: string | null | undefined, fallback = '—') {
+export function formatDeadline(value: string | null | undefined, fallback = '-') {
   if (!value) return fallback
   const d = parseISO(value)
   return isValid(d) ? format(d, 'dd/MM/yyyy HH:mm', { locale: vi }) : fallback
@@ -47,3 +55,50 @@ export function localInputToIso(value: string) {
   const d = new Date(value)
   return isValid(d) ? d.toISOString() : null
 }
+
+// ── Phân loại cuộc thi (khớp competition.constants của API) ──
+
+export const AUDIENCE_LABEL: Record<CompetitionAudience, string> = {
+  university: 'Sinh viên đại học',
+  highschool: 'Học sinh THPT',
+  all: 'Tất cả học sinh, sinh viên',
+}
+export const FORMAT_LABEL: Record<CompetitionFormat, string> = { online: 'Online', offline: 'Offline', hybrid: 'Hybrid' }
+export const PARTICIPATION_LABEL: Record<CompetitionParticipation, string> = { individual: 'Cá nhân', team: 'Nhóm', both: 'Cá nhân hoặc nhóm' }
+export const SCALE_LABEL: Record<CompetitionScale, string> = {
+  school: 'Cấp trường',
+  south: 'Miền Nam',
+  north: 'Miền Bắc',
+  central: 'Miền Trung',
+  national: 'Toàn quốc',
+}
+const opts = <K extends string>(m: Record<K, string>) => [{ value: '', label: 'Chưa chọn' }, ...(Object.keys(m) as K[]).map((k) => ({ value: k, label: m[k] }))]
+export const AUDIENCE_OPTIONS = opts(AUDIENCE_LABEL)
+export const FORMAT_OPTIONS = opts(FORMAT_LABEL)
+export const PARTICIPATION_OPTIONS = opts(PARTICIPATION_LABEL)
+export const SCALE_OPTIONS = opts(SCALE_LABEL)
+
+/** Lĩnh vực chuẩn - dùng cho bộ lọc web và Theo dõi lĩnh vực */
+export const COMPETITION_FIELD_OPTIONS = [
+  'Kinh doanh - Chiến lược',
+  'Marketing',
+  'Tài chính',
+  'Nhân sự',
+  'Công nghệ / Dữ liệu',
+  'ESG / Phát triển bền vững',
+  'Khác',
+]
+
+export const ROUND_FORMATS = [
+  'Phân tích case và đề xuất giải pháp',
+  'Thuyết trình trước hội đồng',
+  'Bài thi trắc nghiệm / kiến thức',
+  'Phỏng vấn',
+  'Workshop / Bootcamp',
+  'Khác',
+]
+
+export const CONTACT_ROLES = ['Trưởng ban Tổ chức', 'Phó ban Tổ chức', 'Thành viên BTC', 'Phụ trách truyền thông', 'Phụ trách đối ngoại', 'Khác']
+
+/** 30000000 → "30.000.000 ₫" */
+export const formatVnd = (n: number) => `${n.toLocaleString('vi-VN')} ₫`

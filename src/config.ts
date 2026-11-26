@@ -4,7 +4,7 @@ export const config = {
   appName: 'CACE CMS',
   /** Mã vai được quản lý người dùng / vai trò (chưa có RBAC) */
   adminRoleCode: 'admin',
-  /** Mã vai được quản lý nội dung (thư viện case, danh mục) */
+  /** Mã vai được quản lý nội dung (rèn luyện, danh mục) */
   contentRoleCodes: ['admin', 'mentor'],
   /** Trang web người học, dùng cho nút "Xem trên web" */
   webUrl: (import.meta.env.VITE_WEB_URL || 'http://localhost:3100').replace(/\/$/, ''),
